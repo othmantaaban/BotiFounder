@@ -1,0 +1,15 @@
+<ion-content>
+  <h1 style="text-align: center;font-weight: bold;margin-top: 10px;">Suivi Administratif</h1>
+  <h4 class="text-muted" style="text-align: center;">Vue Anneé</h4> 
+  <!-- <app-stacked-bar-chart [barChartLabels]="absPersoLabels" [barChartData]="absPersoData" [Title]="'Absences du personnel'" ></app-stacked-bar-chart> -->
+  <app-stacked-bar-chart 
+    [barChartLabels]="absCycleLabels" 
+    [barChartData]="absCycleData" 
+    [Title]="'Absences par cycle'" 
+  ></app-stacked-bar-chart>
+
+  <app-listing-usage [items]="topAbsencesList" [Title]="'Top Absences'"></app-listing-usage>
+  <app-stacked-bar-chart [barChartLabels]="msgCycleLabels" [barChartData]="msgCycleData" [Title]="'Messages par cycle'" ></app-stacked-bar-chart>
+  <app-stacked-bar-chart [barChartLabels]="dmdCycleLabels" [barChartData]="dmdCycleData" [Title]="'Demandes par cycle'" ></app-stacked-bar-chart>
+  <app-stacked-bar-chart [barChartLabels]="dmdNatureLabels" [barChartData]="dmdNatureData" [Title]="'Demandes par type'" ></app-stacked-bar-chart>
+</ion-content>

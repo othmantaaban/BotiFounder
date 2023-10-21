@@ -1,0 +1,112 @@
+.suivi-item {
+  ion-card {
+    margin: 0px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    ion-card-content {
+      padding: 10px 5px;
+    }
+
+    ion-row {
+      align-items: center;
+
+
+    }
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 10px;
+      margin: 0;
+    }
+  }
+  ion-icon{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 50px;
+  }
+
+  &:nth-child(1){
+
+    ion-icon{
+      color: #f791d2;
+      background-color: #f791d233;
+    }
+  }
+
+  &:nth-child(2){
+
+    ion-icon{
+      color: #65dc80;
+      background-color: #65dc8033;
+    }
+  }
+
+  &:nth-child(3){
+
+    ion-icon{
+      color: #f2690b;
+      background-color: #f2690b33;
+    }
+  }
+
+  &:nth-child(4){
+
+    ion-icon{
+      color: #3a6fe1;
+      background-color: #3a6fe133;
+    }
+  }
+
+  &:nth-child(5){
+
+    ion-icon{
+      color: #9880f2;
+      background-color: #9880f233;
+    }
+  }
+
+  &:nth-child(6){
+
+    ion-icon{
+      color: #57c0dd;
+      background-color: #57c0dd33;
+    }
+  }
+
+  &:nth-child(7){
+
+    ion-icon{
+      color: #ff987e;
+      background-color: #ff987e33;
+    }
+  }
+
+  &:nth-child(8){
+
+    ion-icon{
+      color: #f791d2;
+      background-color: #f791d233;
+    }
+  }
+
+
+}
+.apexcharts-canvas {
+  margin: auto !important;
+}
+
+h4{
+  font-size: 18px;
+}
+
+.logout-icon{
+  margin-left: auto;
+  font-size: 26px;
+  color: #a2a2a2;
+}

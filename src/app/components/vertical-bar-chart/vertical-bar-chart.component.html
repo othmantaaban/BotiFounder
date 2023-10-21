@@ -1,0 +1,16 @@
+<div *ngIf="barChartData[0].data.length!=0 as value; else blank" style="display: block" style="width:90%;margin:auto">
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [type]="barChartType">
+  </canvas>
+</div>
+
+<ng-template #blank>
+  <div class="text-center" style="margin:20px">
+    <img src="assets/no_data.png" alt="" width="">
+    <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+  </div>
+</ng-template>

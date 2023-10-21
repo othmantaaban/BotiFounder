@@ -1,0 +1,111 @@
+<ion-grid style="margin-right: 20px;margin-left: 20px;color: black;">
+  <swiper-container class="visible" [pager]="true" [initialSlide]="0" [speed]="600" [centeredSlides]="true">
+    <swiper-slide *ngFor="let item of items;">
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;width: 100%;"
+        class="card-custom">
+        <ion-row style="border-bottom: solid #9c9c9c 1px;">
+          <ion-col size="12" style="height: auto;">
+            <h6 style="font-weight:bold;margin: 0;">
+              <ng-template *ngIf="item.title =='Absences'; else showElse">
+                <span>
+                  <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 12.8118C0 13.5435 0.59365 14.1371 1.32536 14.1371H11.0446C11.7764 14.1371 12.37 13.5435 12.37 12.8118V5.30143H0V12.8118ZM8.83571 7.39991C8.83571 7.21767 8.98482 7.06857 9.16705 7.06857H10.2715C10.4538 7.06857 10.6029 7.21767 10.6029 7.39991V8.50437C10.6029 8.68661 10.4538 8.83571 10.2715 8.83571H9.16705C8.98482 8.83571 8.83571 8.68661 8.83571 8.50437V7.39991ZM8.83571 10.9342C8.83571 10.752 8.98482 10.6029 9.16705 10.6029H10.2715C10.4538 10.6029 10.6029 10.752 10.6029 10.9342V12.0387C10.6029 12.2209 10.4538 12.37 10.2715 12.37H9.16705C8.98482 12.37 8.83571 12.2209 8.83571 12.0387V10.9342ZM5.30143 7.39991C5.30143 7.21767 5.45053 7.06857 5.63277 7.06857H6.73723C6.91947 7.06857 7.06857 7.21767 7.06857 7.39991V8.50437C7.06857 8.68661 6.91947 8.83571 6.73723 8.83571H5.63277C5.45053 8.83571 5.30143 8.68661 5.30143 8.50437V7.39991ZM5.30143 10.9342C5.30143 10.752 5.45053 10.6029 5.63277 10.6029H6.73723C6.91947 10.6029 7.06857 10.752 7.06857 10.9342V12.0387C7.06857 12.2209 6.91947 12.37 6.73723 12.37H5.63277C5.45053 12.37 5.30143 12.2209 5.30143 12.0387V10.9342ZM1.76714 7.39991C1.76714 7.21767 1.91625 7.06857 2.09848 7.06857H3.20295C3.38518 7.06857 3.53429 7.21767 3.53429 7.39991V8.50437C3.53429 8.68661 3.38518 8.83571 3.20295 8.83571H2.09848C1.91625 8.83571 1.76714 8.68661 1.76714 8.50437V7.39991ZM1.76714 10.9342C1.76714 10.752 1.91625 10.6029 2.09848 10.6029H3.20295C3.38518 10.6029 3.53429 10.752 3.53429 10.9342V12.0387C3.53429 12.2209 3.38518 12.37 3.20295 12.37H2.09848C1.91625 12.37 1.76714 12.2209 1.76714 12.0387V10.9342ZM11.0446 1.76714H9.71929V0.441786C9.71929 0.198804 9.52048 0 9.2775 0H8.39393C8.15095 0 7.95214 0.198804 7.95214 0.441786V1.76714H4.41786V0.441786C4.41786 0.198804 4.21905 0 3.97607 0H3.0925C2.84952 0 2.65071 0.198804 2.65071 0.441786V1.76714H1.32536C0.59365 1.76714 0 2.36079 0 3.0925V4.41786H12.37V3.0925C12.37 2.36079 11.7764 1.76714 11.0446 1.76714Z"
+                      fill="#A8A8A8" />
+                  </svg>
+                </span>
+              </ng-template>
+              <ng-template #showElse>
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M0 6.99999C0 10.85 3.15 14 7 14C10.85 14 14 10.85 14 6.99999C14 3.15 10.85 0 7 0C3.15 0 0 3.15 0 6.99999ZM7 7.69999H10.43C10.85 7.69999 11.13 7.41999 11.13 6.99999C11.13 6.57999 10.85 6.29999 10.43 6.29999H7.7V3.57C7.7 3.15 7.42 2.87 7 2.87C6.58 2.87 6.3 3.15 6.3 3.57V6.99999C6.3 7.41999 6.58 7.69999 7 7.69999Z"
+                      fill="#A8A8A8" />
+                  </svg>
+                </span>
+              </ng-template>
+
+              <span style="font-size: 0.9em ;">
+                {{item.title}}
+              </span>
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;">
+          <ion-col size="5">
+            <h3 style="margin: 0">
+              <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.total}}</span> <span
+                style="font-size: 0.6em;">{{item.label}}</span>
+            </h3>
+          </ion-col>
+          <ion-col>
+            <!-- <h4 style="margin: 0"><ion-icon name="remove-outline"></ion-icon></h4> -->
+            <svg width="2" height="27" viewBox="0 0 2 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 0V27" stroke="#B1B1B1" stroke-width="0.4" />
+            </svg>
+          </ion-col>
+          <ion-col size="5">
+            <h3 style="margin: 0;">
+              <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.count1}}</span> <span
+                style="font-size: 0.6em;">{{item.alias1}}</span>
+            </h3>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+  <!-- <ion-slides class="visible" pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let item of items;">
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;width: 100%;"
+        class="card-custom">
+        <ion-row style="border-bottom: solid #9c9c9c 1px;">
+          <ion-col size="12" style="height: auto;">
+            <h6 style="font-weight:bold;margin: 0;">
+              <ng-template *ngIf="item.title =='Absences'; else showElse">
+                <span>
+                  <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 12.8118C0 13.5435 0.59365 14.1371 1.32536 14.1371H11.0446C11.7764 14.1371 12.37 13.5435 12.37 12.8118V5.30143H0V12.8118ZM8.83571 7.39991C8.83571 7.21767 8.98482 7.06857 9.16705 7.06857H10.2715C10.4538 7.06857 10.6029 7.21767 10.6029 7.39991V8.50437C10.6029 8.68661 10.4538 8.83571 10.2715 8.83571H9.16705C8.98482 8.83571 8.83571 8.68661 8.83571 8.50437V7.39991ZM8.83571 10.9342C8.83571 10.752 8.98482 10.6029 9.16705 10.6029H10.2715C10.4538 10.6029 10.6029 10.752 10.6029 10.9342V12.0387C10.6029 12.2209 10.4538 12.37 10.2715 12.37H9.16705C8.98482 12.37 8.83571 12.2209 8.83571 12.0387V10.9342ZM5.30143 7.39991C5.30143 7.21767 5.45053 7.06857 5.63277 7.06857H6.73723C6.91947 7.06857 7.06857 7.21767 7.06857 7.39991V8.50437C7.06857 8.68661 6.91947 8.83571 6.73723 8.83571H5.63277C5.45053 8.83571 5.30143 8.68661 5.30143 8.50437V7.39991ZM5.30143 10.9342C5.30143 10.752 5.45053 10.6029 5.63277 10.6029H6.73723C6.91947 10.6029 7.06857 10.752 7.06857 10.9342V12.0387C7.06857 12.2209 6.91947 12.37 6.73723 12.37H5.63277C5.45053 12.37 5.30143 12.2209 5.30143 12.0387V10.9342ZM1.76714 7.39991C1.76714 7.21767 1.91625 7.06857 2.09848 7.06857H3.20295C3.38518 7.06857 3.53429 7.21767 3.53429 7.39991V8.50437C3.53429 8.68661 3.38518 8.83571 3.20295 8.83571H2.09848C1.91625 8.83571 1.76714 8.68661 1.76714 8.50437V7.39991ZM1.76714 10.9342C1.76714 10.752 1.91625 10.6029 2.09848 10.6029H3.20295C3.38518 10.6029 3.53429 10.752 3.53429 10.9342V12.0387C3.53429 12.2209 3.38518 12.37 3.20295 12.37H2.09848C1.91625 12.37 1.76714 12.2209 1.76714 12.0387V10.9342ZM11.0446 1.76714H9.71929V0.441786C9.71929 0.198804 9.52048 0 9.2775 0H8.39393C8.15095 0 7.95214 0.198804 7.95214 0.441786V1.76714H4.41786V0.441786C4.41786 0.198804 4.21905 0 3.97607 0H3.0925C2.84952 0 2.65071 0.198804 2.65071 0.441786V1.76714H1.32536C0.59365 1.76714 0 2.36079 0 3.0925V4.41786H12.37V3.0925C12.37 2.36079 11.7764 1.76714 11.0446 1.76714Z"
+                      fill="#A8A8A8" />
+                  </svg>
+                </span>
+              </ng-template>
+              <ng-template #showElse>
+                <span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M0 6.99999C0 10.85 3.15 14 7 14C10.85 14 14 10.85 14 6.99999C14 3.15 10.85 0 7 0C3.15 0 0 3.15 0 6.99999ZM7 7.69999H10.43C10.85 7.69999 11.13 7.41999 11.13 6.99999C11.13 6.57999 10.85 6.29999 10.43 6.29999H7.7V3.57C7.7 3.15 7.42 2.87 7 2.87C6.58 2.87 6.3 3.15 6.3 3.57V6.99999C6.3 7.41999 6.58 7.69999 7 7.69999Z"
+                      fill="#A8A8A8" />
+                  </svg>
+                </span>
+              </ng-template>
+
+              <span style="font-size: 0.9em ;">
+                {{item.title}}
+              </span>
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 10px;">
+          <ion-col size="5">
+            <h3 style="margin: 0">
+              <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.total}}</span> <span
+                style="font-size: 0.6em;">{{item.label}}</span>
+            </h3>
+          </ion-col>
+          <ion-col>
+            <svg width="2" height="27" viewBox="0 0 2 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 0V27" stroke="#B1B1B1" stroke-width="0.4" />
+            </svg>
+          </ion-col>
+          <ion-col size="5">
+            <h3 style="margin: 0;">
+              <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.count1}}</span> <span
+                style="font-size: 0.6em;">{{item.alias1}}</span>
+            </h3>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+  </ion-slides> -->
+</ion-grid>

@@ -1,0 +1,31 @@
+.listing-depense {
+    height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    
+    .item {
+        margin: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        .name {
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .date {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .total {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--main-color);
+        }
+    }
+}

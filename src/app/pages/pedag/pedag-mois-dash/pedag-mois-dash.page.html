@@ -1,0 +1,77 @@
+<!-- <ion-header class="ion-no-border">
+  <app-date-segments [listPaths]="pathList" active="1"></app-date-segments>
+</ion-header>
+-->
+<ion-content> 
+  <!-- <app-date-segments [listPaths]="pathList" active="1"></app-date-segments> -->
+  <h6  style="text-align: center;margin-top: 20px;"><span style="font-weight: bold;">Suivi Pédagogique</span> > Vue Mensuelle</h6>
+  <app-cards-pedg [items]="itemsPedag1"></app-cards-pedg>
+  <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 85%;" class="text-center card-custom mx-auto">
+    <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">Absences par</span></h6>
+    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist" style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#abs-cycle-mois" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Cycle</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="abs-cycle-mois" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="absCycleLabels" [barChartData]="absCycleData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+    </div>
+  </ion-card>
+
+
+  <!-- <app-cards-finance [items]="itemsPedag2"></app-cards-finance> -->
+  <app-cards-pedagv2 [items]="itemsPedag2"></app-cards-pedagv2>
+
+
+  <!-- <ion-slides  style="margin-bottom: 10px;" pager="true" [options]="slideOpts">
+    <ion-slide>
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: auto;margin-bottom:30px;width: 300px;" class="card-custom">
+        <h3 style="text-align: center;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">Devoirs / Cycle</h3>
+        <app-donut-chart [doughnutChartLabels]="devCycleLabels" [doughnutChartData]="devCycleData"></app-donut-chart>
+     </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: auto;margin-bottom:30px;width: 300px;" class="card-custom">
+        <h3 style="text-align: center;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">Ressources / Cycle</h3>
+        <app-donut-chart [doughnutChartLabels]="resCycleLabels" [doughnutChartData]="resCycleData"></app-donut-chart>
+     </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: auto;margin-bottom:30px;width: 300px;" class="card-custom">
+        <h3 style="text-align: center;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">Album Photo / Cycle</h3>
+        <app-donut-chart [doughnutChartLabels]="apCycleLabels" [doughnutChartData]="apCycleData"></app-donut-chart>
+     </ion-card>
+    </ion-slide>
+  </ion-slides> -->
+
+  <!-- <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 85%;" class="text-center card-custom mx-auto">
+    <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">Cycle</span></h6>
+    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist" style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#dev-mois" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Devoirs</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#res-mois" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Ressources</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#ap-mois" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Album Photo</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="dev-mois" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="devCycleLabels" [barChartData]="devCycleData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+      <div class="tab-pane fade" id="res-mois" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="resCycleLabels" [barChartData]="resCycleData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+      <div class="tab-pane fade" id="ap-mois" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="apCycleLabels" [barChartData]="apCycleData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+    </div>
+  </ion-card> -->
+
+  
+
+</ion-content>

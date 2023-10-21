@@ -1,0 +1,85 @@
+<ion-grid class="mx-auto" style="width: 90%;color: black;margin-bottom: 20px;">
+  <!-- <ion-slides class="visible" pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let item of items;" >
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 100%;" >
+        <ion-row style="margin-top: 10px;">
+          <ion-col size="12">
+              <h2 style="margin: 0;text-align: center;">
+                <span style="font-weight:bold;">{{item.total}}</span> 
+              </h2>
+          </ion-col>
+          <ion-col size="12">
+            <h6 style="margin: 0;text-align: center;">
+               <span style="font-size:1em;">{{item.title}}</span>
+            </h6>
+        </ion-col>
+        </ion-row>
+  </ion-card>
+    </ion-slide>
+  </ion-slides> -->
+
+  <ion-row style="margin-top:0px;">
+    <ion-col class="mx-auto">
+      <ion-card class="p-1 text-center py-3 m-0" style="width:100%;height:130px" size="4">
+        <div class="mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#EE5F5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2V8H20" stroke="#EE5F5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 13H8" stroke="#EE5F5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 17H8" stroke="#EE5F5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 9H9H8" stroke="#EE5F5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          
+        <h2 style="margin: 0;text-align: center;">
+          <span style="font-weight:bold;">{{items[0]?.total}}</span> 
+        </h2>
+        <h6 style="margin: 0;text-align: center;font-weight: 200;">
+          <span style="font-size:0.7em;">{{items[0]?.title}}</span>
+       </h6>
+      </ion-card>
+    </ion-col>
+    <ion-col class="mx-auto">
+      <ion-card class="p-1 text-center py-3 m-0" style="width:100%;height:130px" size="4">
+        <div class="mb-3">
+          <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_120_248)">
+            <path d="M9.90986 10.6188H6.40596C6.06455 10.6188 5.78603 10.3542 5.78603 10.0202C5.78603 9.69049 6.06455 9.42155 6.40596 9.42155H9.90986C10.2513 9.42155 10.5298 9.69049 10.5298 10.0202C10.5298 10.3498 10.2513 10.6188 9.90986 10.6188Z" fill="#EE5F5F"/>
+            <path d="M3.43653 6.88399H13.9393L15.6463 5.14456C15.7945 4.99708 15.9922 4.91032 16.2033 4.91032L22.2184 4.86694C22.4295 4.87128 22.6182 4.94502 22.7664 5.08383C22.9146 5.22264 22.9955 5.4135 22.9955 5.61303L23 19.047C23 19.2465 22.9191 19.4374 22.7754 19.5762C22.6271 19.715 22.434 19.7931 22.2273 19.7931H3.44551C3.01875 19.7931 2.67285 19.4591 2.66836 19.0427L2.66387 7.63008C2.66387 7.43054 2.74473 7.23968 2.88848 7.10088C3.03672 6.96207 3.22988 6.88399 3.43653 6.88399ZM4.21817 18.3009H21.4547L21.4592 6.3678L16.5492 6.4025L14.8377 8.14627C14.6895 8.29809 14.4873 8.38051 14.2762 8.38051H4.21367L4.21817 18.3009Z" fill="#EE5F5F"/>
+            <path d="M0.224512 4.61534C0.368262 4.47653 0.565918 4.39845 0.772558 4.39845H11.2753L12.9823 2.65902C13.1261 2.51154 13.3282 2.42912 13.5394 2.42479L19.5544 2.38141H19.5589C19.761 2.38141 19.9587 2.45949 20.1024 2.5983C20.2507 2.7371 20.3315 2.92796 20.3315 3.1275V4.29435H18.7862V3.88226L13.8763 3.91697L12.1647 5.66073C12.0165 5.80822 11.8144 5.89497 11.6032 5.89497H1.54072L1.54521 15.8154H2.17412V17.3075H0.772558C0.3458 17.3075 -9.72748e-05 16.9735 -9.72748e-05 16.5615L-0.00458908 5.14454C-9.68934e-05 4.94501 0.0807621 4.75415 0.224512 4.61534Z" fill="#EE5F5F"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_120_248">
+            <rect width="23" height="22.2092" fill="white" transform="matrix(-1 0 0 1 23 0)"/>
+            </clipPath>
+            </defs>
+            </svg>            
+          </div>
+          
+        <h2 style="margin: 0;text-align: center;">
+          <span style="font-weight:bold;">{{items[1]?.total}}</span> 
+        </h2>
+        <h6 style="margin: 0;text-align: center;">
+          <span style="font-size:0.7em;font-weight: 200;">{{items[1]?.title}}</span>
+       </h6>
+      </ion-card>
+    </ion-col>
+    <ion-col class="mx-auto">
+      <ion-card class="p-1 text-center py-3 m-0" style="width:100%;height:130px" size="4">
+        <div class="mb-3">
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1H7C8.06087 1 9.07828 1.42143 9.82843 2.17157C10.5786 2.92172 11 3.93913 11 5V19C11 18.2044 10.6839 17.4413 10.1213 16.8787C9.55871 16.3161 8.79565 16 8 16H1V1Z" stroke="#EE5F5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 1H15C13.9391 1 12.9217 1.42143 12.1716 2.17157C11.4214 2.92172 11 3.93913 11 5V19C11 18.2044 11.3161 17.4413 11.8787 16.8787C12.4413 16.3161 13.2044 16 14 16H21V1Z" stroke="#EE5F5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>            
+          </div>
+          
+        <h2 style="margin: 0;text-align: center;">
+          <span style="font-weight:bold;">{{items[2]?.total}}</span> 
+        </h2>
+        <h6 style="margin: 0;text-align: center;">
+          <span style="font-size:0.7em;font-weight: 200;">{{items[2]?.title}}</span>
+       </h6>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

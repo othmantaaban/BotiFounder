@@ -1,0 +1,9 @@
+.main {
+    ion-col {
+        display: flex;
+        align-items: center;
+        &.empty {
+            justify-content: center;
+        }
+    }
+}

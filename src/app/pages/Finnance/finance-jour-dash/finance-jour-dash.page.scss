@@ -1,0 +1,220 @@
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+  
+    color: #8c8c8c;
+  
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+  
+
+.listing {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  
+  .item {
+    padding: 15px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px -1px 15px 0px rgba(214, 214, 228, 0.41);
+    display: flex;
+    gap: 10px;
+    ion-img {
+      width: 51px;
+      height: 51px;
+      max-width: 51px;
+      max-height: 51px;
+      min-width: 51px;
+      min-height: 51px;
+      border-radius: 50%;
+      object-fit: fill;
+      overflow: hidden;
+    }
+
+    .content {
+      flex: 1;
+      .infos {
+        margin-bottom: 5px;
+        .user {
+          display: flex;
+          align-items: center;
+          flex-wrap: nowrap;
+          gap: 10px;
+          font-weight: 700;
+          margin-bottom: 10px;
+          .name {
+            color: #12122C;
+            font-size: 14px;
+          }
+
+          .class {
+            color: #F65E40;
+            font-size: 10px;
+            letter-spacing: -0.2px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: #FFF0EC;
+            display: grid;
+            place-items: center;
+            white-space: nowrap;
+            height: fit-content;
+          }
+        }
+
+        .type {
+          color: #838383;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: -0.3px;
+          span {
+            padding: 5px 10px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 40px;
+            border: 0.4px solid #838383;
+          }
+        }
+      }
+
+      .frais {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+        .fromTo {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          color: #5857D5;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: -0.14px;
+        }
+
+        .total {
+          color: #F65E40;
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: -0.16px;
+          border-radius: 5px;
+          background: #FFF0EC;
+          padding: 10px;
+        }
+      }
+
+    }
+  }
+}  
+
+
+.remise_count {
+  margin-inline: auto !important;
+  .content {
+    // padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .num {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 900;
+      padding: 6px;
+      background-color: #FFF0EC;
+      // border-radius: 8.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #F65E40;
+    }
+  }
+
+
+  .link-footer{
+    text-align: center;
+    border-top: 1px solid #E4E3E3;
+    width: 100%;
+    padding: 10px 10px 5px 10px;
+    a{
+        color: #12122C;
+        font-family: Manrope;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        ion-icon{
+            color: #F65E40;
+            font-family: Manrope;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: -0.24px;
+        }
+    }
+  }
+}
+
+.listing-depense {
+  height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  
+  .item {
+      margin: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      .name {
+          font-weight: 900;
+          font-size: 18px;
+      }
+
+      .date {
+          font-size: 14px;
+          font-weight: 700;
+      }
+
+      .total {
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--main-color);
+      }
+  }
+}

@@ -1,0 +1,319 @@
+<ion-header class="ion-no-border">
+  <!-- <app-date-segments [listPaths]="pathList" active="0"></app-date-segments> -->
+</ion-header>
+
+<ion-content [fullscreen]="true" style="background-color: #F5F5F5;">
+  <ion-grid *ngIf="_result">
+    <ion-row class="ion-margin-vertical">
+      <ion-col>
+        <div class="d-flex align-items-center">
+          <h4 class="ion-no-margin"> <b> Suivi des inscriptions : </b> </h4>
+          <!-- <ion-icon (click)="logout()" class="logout-icon" name="log-out-outline"></ion-icon> -->
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="people"></ion-icon>
+              <div>
+                <h4>{{_result.count_new_inscriptions+_result.count_reinscriptions}}</h4>
+                <p>Total des inscriptions</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="person-add"></ion-icon>
+              <div>
+                <h4>{{_result.count_inscriptions_request||0}}</h4>
+                <p>Demandes des inscriptions</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="document"></ion-icon>
+              <div>
+                <h4>{{_result.count_new_inscriptions}}</h4>
+                <p>Nouvelles inscriptions</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="reload"></ion-icon>
+              <div>
+                <h4>{{_result.count_reinscriptions}}</h4>
+                <p>Ré-inscriptions</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="people-circle"></ion-icon>
+              <div>
+                <h4>{{_result.count_prospects}}</h4>
+                <p>Nouveaux prospects/Leads</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="pencil"></ion-icon>
+              <div>
+                <h4>{{_result.count_testes_admission}}</h4>
+                <p>Tests d'admission</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="clipboard"></ion-icon>
+              <div>
+                <h4>{{_result.count_entretiens}}</h4>
+                <p>Entretiens</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="suivi-item" size="6">
+        <ion-card>
+          <ion-card-content>
+            <div class="d-flex align-items-center">
+              <ion-icon name="eye"></ion-icon>
+              <div>
+                <h4>{{_result.count_visites}}</h4>
+                <p>Nouvelles Visites</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="_result">
+    <ion-row>
+      <ion-col>
+        <h4> <b> Rèpartition dès inscriptions </b> </h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <swiper-container style="margin-bottom: 10px;" [pager]="true" [initialSlide]="0" [speed]="600"
+          [centeredSlides]="true">
+          <swiper-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Inscriptions & Réinscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieInscriReinscri"></app-pie-chart>
+            </ion-card>
+          </swiper-slide>
+          <swiper-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Inscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieInscri"></app-pie-chart>
+            </ion-card>
+          </swiper-slide>
+          <swiper-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Réinscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieReinscri"></app-pie-chart>
+            </ion-card>
+          </swiper-slide>
+        </swiper-container>
+        <!-- <ion-slides style="margin-bottom: 10px;" pager="true" [options]="slideOpts">
+          <ion-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Inscriptions & Réinscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieInscriReinscri"></app-pie-chart>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Inscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieInscri"></app-pie-chart>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="pb-5">
+            <ion-card style="width: 100%;" class="ion-no-margin pb-3">
+              <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+                <span style="font-size: 0.9em ;">Réinscriptions</span>
+              </h6>
+              <app-pie-chart [data]="datasetPieReinscri"></app-pie-chart>
+            </ion-card>
+          </ion-slide>
+        </ion-slides> -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 100%;"
+          class="text-center card-custom mx-auto">
+          <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span
+              style="font-size: 0.9em ;">Inscriptions par niveau</span></h6>
+          <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist"
+            style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#inscri-maternelle" type="button" role="tab" aria-controls="pills-home"
+                aria-selected="true">Maternelle</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#inscri-primaire"
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Primaire</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#inscri-college"
+                type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Collège</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#inscri-Lycée"
+                type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Lycée</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="inscri-maternelle" role="tabpanel"
+              aria-labelledby="pills-home-tab" tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectInscri('maternelle').labels"
+                [barChartData]="getObjectInscri('maternelle').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="inscri-primaire" role="tabpanel" aria-labelledby="pills-profile-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectInscri('primaire').labels"
+                [barChartData]="getObjectInscri('primaire').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="inscri-college" role="tabpanel" aria-labelledby="pills-contact-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectInscri('college').labels"
+                [barChartData]="getObjectInscri('college').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="inscri-Lycée" role="tabpanel" aria-labelledby="pills-contact-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectInscri('lycee').labels"
+                [barChartData]="getObjectInscri('lycee').datasets" [barChartLegend]="false"></app-horizontal-bar-chart>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 100%;"
+          class="text-center card-custom mx-auto">
+          <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span
+              style="font-size: 0.9em ;">Ré-inscriptions par niveau</span></h6>
+          <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist"
+            style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#reinscri-maternelle" type="button" role="tab" aria-controls="pills-home"
+                aria-selected="true">Maternelle</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#reinscri-primaire"
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Primaire</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#reinscri-college"
+                type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Collège</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#reinscri-Lycée"
+                type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Lycée</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="reinscri-maternelle" role="tabpanel"
+              aria-labelledby="pills-home-tab" tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectReInscri('maternelle').labels"
+                [barChartData]="getObjectReInscri('maternelle').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="reinscri-primaire" role="tabpanel" aria-labelledby="pills-profile-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectReInscri('primaire').labels"
+                [barChartData]="getObjectReInscri('primaire').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="reinscri-college" role="tabpanel" aria-labelledby="pills-contact-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectReInscri('college').labels"
+                [barChartData]="getObjectReInscri('college').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+            <div class="tab-pane fade" id="reinscri-Lycée" role="tabpanel" aria-labelledby="pills-contact-tab"
+              tabindex="0">
+              <app-horizontal-bar-chart [barChartLabels]="getObjectReInscri('lycee').labels"
+                [barChartData]="getObjectReInscri('lycee').datasets" [barChartLegend]="false">
+              </app-horizontal-bar-chart>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-margin-bottom">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12">
+        <div class=" ion-margin-bottom disconnect ion-text-center">
+          <button class="btn btn-light btn-block mx-auto"
+            style="margin-top:50px;height:65px;width:100%;box-shadow: 0px 0px 19px 0px rgb(0 0 0 / 8%)"
+            (click)="logout()">
+            <!-- <img style="margin-right:5px" src="./assets/logout.png" alt="">  -->
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M13 1H17C17.5304 1 18.0391 1.21071 18.4142 1.58579C18.7893 1.96086 19 2.46957 19 3V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H13"
+                stroke="#F65E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 15L13 10L8 5" stroke="#F65E40" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M13 10H1" stroke="#F65E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            Se déconnecter
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-content [fullscreen]="true">
+  <div class="header">
+    <ion-toolbar mode="md">
+      <a (click)="navigateTo('/tabs/finance-dash')">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <span>Retour</span>
+      </a>
+    </ion-toolbar>
+    <div class="title">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+          <path d="M14.7268 5.36551C14.9834 5.07898 15.2975 4.84978 15.6486 4.69286C15.9998 4.53594 16.38 4.45483 16.7646 4.45483C17.1492 4.45483 17.5295 4.53594 17.8807 4.69286C18.2318 4.84978 18.5459 5.07898 18.8024 5.36551L19.7598 6.43501C20.0334 6.74067 20.3723 6.98088 20.7513 7.13784C21.1303 7.2948 21.5398 7.36449 21.9494 7.34176L23.3854 7.26244C23.7695 7.24126 24.1538 7.30134 24.5131 7.43876C24.8724 7.57617 25.1986 7.78782 25.4706 8.0599C25.7425 8.33197 25.954 8.65835 26.0913 9.01771C26.2285 9.37708 26.2884 9.76135 26.267 10.1454L26.1877 11.5801C26.1652 11.9895 26.235 12.3987 26.392 12.7775C26.5489 13.1562 26.789 13.4949 27.0945 13.7683L28.164 14.7257C28.4507 14.9822 28.6801 15.2964 28.8372 15.6477C28.9942 15.9989 29.0754 16.3794 29.0754 16.7642C29.0754 17.1489 28.9942 17.5294 28.8372 17.8806C28.6801 18.2319 28.4507 18.5461 28.164 18.8026L27.0945 19.76C26.7888 20.0336 26.5486 20.3725 26.3916 20.7515C26.2347 21.1305 26.165 21.54 26.1877 21.9496L26.267 23.3856C26.2882 23.7697 26.2281 24.154 26.0907 24.5133C25.9533 24.8726 25.7417 25.1988 25.4696 25.4708C25.1975 25.7427 24.8711 25.9542 24.5118 26.0915C24.1524 26.2287 23.7681 26.2886 23.384 26.2673L21.9494 26.1879C21.54 26.1654 21.1308 26.2352 20.752 26.3922C20.3733 26.5491 20.0346 26.7892 19.7612 27.0947L18.8038 28.1642C18.5472 28.4509 18.2331 28.6803 17.8818 28.8374C17.5305 28.9944 17.1501 29.0756 16.7653 29.0756C16.3805 29.0756 16.0001 28.9944 15.6488 28.8374C15.2976 28.6803 14.9834 28.4509 14.7268 28.1642L13.7695 27.0947C13.4959 26.789 13.157 26.5488 12.778 26.3919C12.399 26.2349 11.9895 26.1652 11.5799 26.1879L10.1439 26.2673C9.75976 26.2884 9.37552 26.2284 9.01622 26.0909C8.65692 25.9535 8.33064 25.7419 8.0587 25.4698C7.78675 25.1977 7.57525 24.8713 7.43801 24.512C7.30077 24.1526 7.24087 23.7683 7.26222 23.3843L7.34155 21.9496C7.36407 21.5402 7.29427 21.131 7.13732 20.7522C6.98037 20.3735 6.74028 20.0348 6.4348 19.7614L5.3653 18.804C5.07855 18.5474 4.84915 18.2333 4.69209 17.882C4.53504 17.5308 4.45386 17.1503 4.45386 16.7655C4.45386 16.3808 4.53504 16.0003 4.69209 15.6491C4.84915 15.2978 5.07855 14.9836 5.3653 14.7271L6.4348 13.7697C6.74046 13.4961 6.98067 13.1572 7.13763 12.7782C7.29458 12.3992 7.36428 11.9897 7.34155 11.5801L7.26222 10.1441C7.24125 9.76008 7.30148 9.37599 7.43898 9.01686C7.57648 8.65772 7.78817 8.33162 8.06022 8.05982C8.33227 7.78803 8.65858 7.57665 9.01784 7.43949C9.37711 7.30233 9.76126 7.24247 10.1452 7.2638L11.5799 7.34313C11.9893 7.36565 12.3985 7.29586 12.7772 7.1389C13.156 6.98195 13.4947 6.74186 13.7681 6.43638L14.7255 5.36688L14.7268 5.36551Z" stroke="#F65E40" stroke-width="1.6"/>
+          <path d="M13.3457 13.3457H13.3594V13.3594H13.3457V13.3457ZM20.1839 20.1839H20.1976V20.1976H20.1839V20.1839Z" stroke="#F65E40" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M20.868 12.6619L12.6621 20.8677" stroke="#F65E40" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>
+        Remises à valider :
+      </span>
+    </div>
+  </div>
+  <ion-grid *ngIf="_result">
+    <ion-row>
+      <ion-col size="12" *ngFor="let request of _result.requests">
+        <div class="item-header">
+          <ion-img [src]="request.inscription.img"></ion-img>
+          <div class="main">
+            <div class="infos">
+              <div class="user">
+                <div class="name">{{request.inscription.nom}}</div>
+                <div class="class">{{request.inscription.classe||request.inscription.niveau}}</div>
+              </div>
+              <div class="type">
+                <span>
+                  {{request.service}}
+                </span>
+              </div>
+            </div>
+            <div class="content">
+              <div class="frais">
+                <div class="fromTo">
+                  <div class="from"> {{ request.old_price }}</div>
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                  <div class="to">
+                    {{request.new_price}}
+                  </div>
+                </div>
+                <div class="total">
+                  <!-- {{request.new_price}} -->
+                  {{request.discount_amount}}
+                </div>
+              </div>
+              <div class="faite">
+                <div class="par">
+                  Demande faite par : <span class="name">{{request.user.nom}}</span> 
+                </div>
+                <div class="date">
+                  {{request.date}}
+                </div>
+              </div>
+              <div class="description">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+                {{request.motif}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ion-footer class="buttons" mode="ios">
+          <ion-button mode="md" (click)="traiterRemise(request,'valide')" class="valider">Valider</ion-button>
+          <ion-button mode="md" (click)="traiterRemise(request,'refus')" class="refuser" >Refuser</ion-button>
+        </ion-footer>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

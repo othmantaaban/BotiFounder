@@ -1,0 +1,30 @@
+  <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">{{Title}}</span></h6>
+  <cdk-virtual-scroll-viewport *ngIf="items.length!=0 as value; else blank" itemSize="300" minBufferPx="900" maxBufferPx="1350" style="height: 300px;">
+  <ion-row style="margin: 19px;" *ngFor="let item of items;">
+  <ion-col size="5"><span style="font-size: 12px;">{{item.user}}</span></ion-col>
+  <ion-col size="2">
+    <span style="margin-left: 10px;">
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5 5L1 9" stroke="#A8A8A8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+  </ion-col>
+  <ion-col size="5"><span style="font-size: 12px;">{{item.categorie}}</span></ion-col>
+  <!-- <ion-col size="1">
+    <span style="margin-left: 10px;">
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5 5L1 9" stroke="#A8A8A8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+  </ion-col>
+  <ion-col style="text-align: right;" size="3">{{item.TraitePar}}</ion-col> -->
+  </ion-row>
+</cdk-virtual-scroll-viewport>
+
+<ng-template #blank>
+  <div class="text-center" style="margin:20px">
+    <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
+    <img src="assets/no_data.png" alt="" width="">
+    <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+  </div>
+</ng-template>

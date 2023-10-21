@@ -1,0 +1,21 @@
+<h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">{{Title}}</span></h6>
+  <cdk-virtual-scroll-viewport *ngIf="items.length!=0 as value; else blank" itemSize="300" minBufferPx="900" maxBufferPx="1350" style="height: 300px;">
+  <ion-row style="margin: 19px;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+    <ion-col class="text-center" size="4"><span style="font-weight: 900;font-size: 12px;">{{ tabs[0] }}</span></ion-col>
+    <ion-col class="text-center" size="4"><span style="font-weight: 900;font-size: 12px;">{{ tabs[1] }}</span></ion-col>
+    <ion-col class="text-center" size="4"><span style="font-weight: 900;font-size: 12px;">{{ tabs[2] }}</span></ion-col>
+
+  </ion-row>
+    <ion-row style="margin: 19px;" *ngFor="let item of items;">
+  <ion-col class="text-center" size="4"><span style="font-size: 12px;">{{item.Eleve}}</span> <br> <span class="text-muted" style="font-size: 9px;">Classe - {{item.Classe}}</span></ion-col>
+  <ion-col class="text-center" size="4"><span style="font-size: 12px;">{{item.Action}}</span></ion-col>
+  <ion-col class="text-center" size="4"><span style="font-size: 12px;">{{item.DateAction}}</span></ion-col>
+
+  </ion-row>
+</cdk-virtual-scroll-viewport>
+<ng-template #blank>
+  <div class="text-center" style="margin:20px">
+    <img src="assets/no_data.png" alt="" width="">
+    <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+  </div>
+</ng-template>

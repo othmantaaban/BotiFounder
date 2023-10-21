@@ -1,0 +1,11 @@
+<ion-content>
+  <!-- <app-date-segments [listPaths]="pathList" active="2"></app-date-segments> -->
+  <h4 class="text-muted" style="text-align: center;font-weight: bold;margin-top: 20px;">Suivi financier > Vue Annuel</h4>
+  <div>
+    <!-- <app-cards-finance [items]="itemsEncaissement"></app-cards-finance>    -->
+    <app-combo-chart [barChartData]="barChartData1" [barChartType]="barChartType1" [barChartLabels]="barChartLabels1"  Title=""></app-combo-chart> 
+    <app-combo-chart [barChartData]="barChartData2" [barChartType]="barChartType2" [barChartLabels]="barChartLabels2" Title="Suivi de la trésorerie"></app-combo-chart>   
+    <app-combo-chart [barChartData]="barChartData3" [barChartType]="barChartType3" [barChartLabels]="barChartLabels3" Title="Suivi de la trésorerie"></app-combo-chart>   
+    <app-combo-chart [barChartData]="barChartData4" [barChartType]="barChartType4" [barChartLabels]="barChartLabels4" Title="Suivi de la trésorerie"></app-combo-chart>   
+  </div>
+</ion-content>

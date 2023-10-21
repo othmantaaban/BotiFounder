@@ -1,0 +1,274 @@
+<!-- <ion-header class="ion-no-border">
+  <app-date-segments [listPaths]="pathList" active="0"></app-date-segments>
+</ion-header> -->
+
+<ion-content>
+  <h6 style="text-align: center;margin-top: 20px;"><span style="font-weight: bold;">Suivi financier</span> > Vue
+    Journalière</h6>
+  <div>
+    <app-cards-finance [items]="itemsEncaissement">
+      
+    </app-cards-finance>
+
+    <ion-card class="mx-auto"
+      class="remise_count"
+      style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
+      <h6 style="text-align: center; font-weight: bold; border-bottom: 1px solid #E4E3E3; padding-bottom: 10px; margin-bottom: 0;">
+        <span style="font-size: 0.9em;">
+          {{ remise_titles?.remisesvalidee ? remise_titles?.remisesvalidee : "Remises a validee" }}
+        </span>
+      </h6>
+      <div class="content">
+        <div class="num">
+          {{ remise_count }}
+        </div>
+      </div>
+      <div class="link-footer">
+        <a  (click)="navigateTo('/tabs/remise-valider')">
+          {{ remise_titles?.remisesvalidelink ? remise_titles?.remisesvalidelink : "remises à valider" }} 
+          <ion-icon name="chevron-forward"></ion-icon></a>
+        
+      </div>
+    </ion-card>
+
+
+    <ion-card class="mx-auto"
+      style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
+      <h6 _ngcontent-syp-c179="" style="text-align: center; font-weight: bold; border-bottom: 1px solid #E4E3E3; padding-bottom: 10px;">
+        <span _ngcontent-syp-c179="" style="font-size: 0.9em;">
+          {{ remise_titles?.remisesaccordees ? remise_titles?.remisesaccordees : "Remises Accordées" }} 
+        </span>
+      </h6>
+
+      <div class="listing">
+        <ng-container 
+        *ngIf="remise.length != 0; else remise_item"
+        >
+          <div class="item" *ngFor="let item of remise">
+          <ion-img [src]="item.inscription.img"></ion-img>
+          <div class="content">
+            <div class="infos">
+              <div class="user">
+                <div  class="name">
+                {{ item.inscription.nom }}
+                </div>
+                <div class="class">
+                  {{ item.inscription.classe }}
+                </div>
+              </div>
+              <div class="type">
+              <span> 
+                {{ item.service }}
+              </span>
+              </div>
+            </div>
+
+            <div class="frais">
+              <div class="fromTo">
+                <div class="from">
+                  {{ item.old_price }}
+                </div>
+                <ion-icon name="chevron-forward-outline" ng-reflect-name="chevron-forward-outline" aria-label="chevron forward outline" role="img" class="md hydrated">
+                </ion-icon>
+                <div class="to">
+                  {{ item.new_price }}
+                </div>
+              </div>
+              <div class="total"> 
+                {{ item.discount_amount }}
+              </div>
+            </div>
+          </div>
+          </div>
+        </ng-container>
+
+        <ng-template #remise_item>
+          <div class="text-center" style="margin:20px">
+            <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
+            <img src="assets/no_data.png" alt="" width="">
+            <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+          </div>
+        </ng-template>
+
+      </div>
+
+    </ion-card>
+
+
+
+    <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 85%;"
+      class="text-center card-custom mx-auto">
+      <h6 style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span
+          style="font-size: 0.9em ;">  
+          {{ encaiss?.title ? encaiss?.title : "Encaissement" }}
+        </span>
+      </h6>
+      <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist"
+        style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#enc-cycle"
+            type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+            {{ encaiss?.cycle?.title ? encaiss?.cycle?.title : "Cycle" }}
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#enc-type" type="button"
+            role="tab" aria-controls="pills-profile" aria-selected="false">
+            {{ encaiss?.paiement?.title ? encaiss?.paiement?.title : "Type" }}
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#enc-service"
+            type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+            {{ encaiss?.service?.title ? encaiss?.service?.title : "Service" }}
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="enc-cycle" role="tabpanel" aria-labelledby="pills-home-tab"
+          tabindex="0">
+          <!-- <h1>Home</h1> -->
+          <app-horizontal-bar-chart [barChartLabels]="encCycleLabels" [barChartData]="encCycleData"
+            [barChartLegend]="false"></app-horizontal-bar-chart>
+
+        </div>
+        <div class="tab-pane fade" id="enc-type" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+          <!-- <h1>profile</h1> -->
+          <app-horizontal-bar-chart [barChartLabels]="encTypeLabels" [barChartData]="encTypeData"
+            [barChartLegend]="false"></app-horizontal-bar-chart>
+        </div>
+        <div class="tab-pane fade" id="enc-service" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+          <!-- <h1>contact</h1> -->
+          <app-horizontal-bar-chart [barChartLabels]="encServiceLabels" [barChartData]="encServiceData"
+            [barChartLegend]="false"></app-horizontal-bar-chart>
+        </div>
+        <!-- <h1>contact</h1> -->
+        <!-- <div class="tab-pane fade" id="enc-site" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+          <app-horizontal-bar-chart [barChartLabels]="encSiteLabels" [barChartData]="encSiteData"
+            [barChartLegend]="false"></app-horizontal-bar-chart>
+        </div> -->
+      </div>
+    </ion-card>
+
+    <ion-card class="mx-auto"
+      style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
+      <app-listing-recouvrements 
+        [items]="recouvrementsList" 
+        [tabs]="recouvrementsTitles?.tabs ? [
+        recouvrementsTitles?.tabs[0] ? recouvrementsTitles?.tabs[0] : 'Eléve', 
+        recouvrementsTitles?.tabs[1] ? recouvrementsTitles?.tabs[1] : 'Action',  
+        recouvrementsTitles?.tabs[2] ? recouvrementsTitles?.tabs[2] : 'Date Action',
+        ] : ['Eléve', 'Action', 'Date Action']" 
+        [Title]="recouvrementsTitles?.title ? recouvrementsTitles?.title : 'Recouvrements'"></app-listing-recouvrements>
+    </ion-card>
+
+    <ion-card class="mx-auto"
+      style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
+      <app-listing-finance-avoirs 
+      [items]="avoirsList" 
+      [tabs]="avoirsTitles?.tabs ? [
+      avoirsTitles?.tabs[0] ? avoirsTitles?.tabs[0] : 'Eléve', 
+      avoirsTitles?.tabs[1] ? avoirsTitles?.tabs[1] : 'User By',  
+      avoirsTitles?.tabs[2] ? avoirsTitles?.tabs[2] : 'Montant',
+      avoirsTitles?.tabs[3] ? avoirsTitles?.tabs[3] : 'Montant Consommé',
+      ] : ['Eléve', 'User By', 'Montant', 'Montant Consommé']" 
+      [Title]="avoirsTitles?.title ? avoirsTitles?.title : 'Avoirs générés'"
+      ></app-listing-finance-avoirs>
+    </ion-card>
+ 
+
+    <ion-card class="mx-auto"
+      style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
+      <app-listing-finance [items]="annulationsList" [Title]="annulationsTitles ? annulationsTitles: 'Paiements Annulés'" 
+      ></app-listing-finance>
+    </ion-card>
+
+    <ion-card *ngIf="depenses?.prestataire?.visible || depenses?.category?.visible" style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 85%;" class="text-center card-custom mx-auto">
+      <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+        <span style="font-size: 0.9em ;">
+          {{ depenses?.title }}
+        </span>
+      </h6>
+      <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist" style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+        <li class="nav-item" *ngIf="depenses?.category?.visible" role="presentation">
+          <button 
+          class="nav-link active" 
+          id="pills-depense_cycle-tab" 
+          data-bs-toggle="pill" 
+          data-bs-target="#depense_cycle" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+            {{depenses?.category?.title}}
+          </button>
+        </li>
+        <li class="nav-item" *ngIf="depenses?.prestataire?.visible" role="presentation">
+          <button 
+            class="nav-link" 
+            id="pills-prestataire-tab" 
+            data-bs-toggle="pill" 
+            data-bs-target="#prestataire" 
+            type="button" 
+            role="tab" 
+            aria-controls="pills-home" 
+            aria-selected="true"
+          >
+            {{depenses?.prestataire?.title}}
+          </button>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div 
+          *ngIf="depenses?.category?.visible"  
+          class="tab-pane fade show active" 
+          id="depense_cycle" 
+          role="tabpanel" 
+          aria-labelledby="pills-depense_cycle-tab" 
+          tabindex="0"
+        >
+          <app-horizontal-bar-chart [barChartLabels]="depensesCategLabels" [barChartData]="depensesCategData" [barChartLegend]="false"></app-horizontal-bar-chart>
+        </div>
+        <div 
+          *ngIf="depenses?.prestataire?.visible" 
+          class="tab-pane fade" 
+          id="prestataire"
+          role="tabpanel" 
+          aria-labelledby="pills-prestataire-tab" 
+          tabindex="0"
+        >
+          <app-horizontal-bar-chart [barChartLabels]="depensesPrestataireLabels" [barChartData]="depensesPrestataireData" [barChartLegend]="false"></app-horizontal-bar-chart>
+        </div>
+      </div>
+    </ion-card>
+
+    <!--  -->
+    <ion-card *ngIf="depenses?.listDepense?.visible"  class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+      <!-- <app-listing-finance [items]="retardsList" [Title]="'Top 30 Retards'"></app-listing-finance> -->
+      <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+        <span style="font-size: 0.9em ;">
+          {{ depenses?.listDepense?.title }}
+        </span>
+      </h6>
+
+      <ng-container  *ngIf="listDepenses.length else listDepense"
+      >
+        <div class="listing-depense">
+          <div class="item" *ngFor="let item of listDepenses">
+            <div class="name">{{ item?.Label }}</div>
+            <div class="date">{{ item?.date }}</div>
+            <div class="total">{{ item?.total }}</div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #listDepense>
+        <div class="text-center" style="margin:20px">
+          <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
+          <img src="assets/no_data.png" alt="" width="">
+          <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+        </div>
+      </ng-template>
+    </ion-card>
+          
+
+
+
+  </div>
+</ion-content>

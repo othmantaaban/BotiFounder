@@ -1,0 +1,64 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu [swipeGesture]="false" contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list id="inbox-list">
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/accueil" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="home"></ion-icon>
+                <ion-label>Accueil</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/finance-jour-dash" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="card"></ion-icon>
+                <ion-label>Finance</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/admin-jour-dash" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="person"></ion-icon>
+                <ion-label>Administration</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/suivi-inscription" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="people"></ion-icon>
+                <ion-label>Inscriptions</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/pedag-jour-dash" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="school"></ion-icon>
+                <ion-label>Pédagogie</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item routerDirection="root" routerLink="/main/usage-jour-dash" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" name="eye"></ion-icon>
+                <ion-label>Usage</ion-label>
+                <!-- <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge> -->
+              </ion-item>
+            </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

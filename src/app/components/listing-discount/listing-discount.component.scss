@@ -1,0 +1,28 @@
+.link-footer{
+    text-align: center;
+    border-top: 1px solid #E4E3E3;
+    width: 100%;
+    padding: 10px 10px 5px 10px;
+    a{
+        color: #12122C;
+        font-family: Manrope;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        ion-icon{
+            color: #F65E40;
+            font-family: Manrope;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: -0.24px;
+        }
+    }
+}

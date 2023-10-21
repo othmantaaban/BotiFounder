@@ -1,0 +1,43 @@
+<!-- <div *ngIf="loader==false as value; else blank1">
+  <ionic-loader type="lines" color="primary" isLoading="true" message="Loading..."></ionic-loader>
+</div>
+
+<ng-template style="display: block" style="width:300px;margin:auto" #blank1>
+  <div *ngIf="barChartData[0].data.length!=0 as value; else blank">
+    <canvas baseChart style="height: 300px;" [datasets]="barChartData" [labels]="barChartLabels"
+      [options]="barChartOptions" [legend]="barChartLegend" [type]="barChartType">
+    </canvas>
+  </div>
+</ng-template>
+<ng-template #blank>
+  <div class="text-center" style="margin:20px">
+    <h6 class="text-center">Aucune donnée</h6>
+    <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width="">
+  </div>
+</ng-template> -->
+<!-- {{ barChartData[0]?.data?.length }} -->
+<div
+  *ngIf="barChartData[0]?.data?.length != 0 && NotOnlyZero(barChartData[0]?.data); else blank"
+  style="display: block"
+  style="width: 300px; margin: auto"
+>
+  <canvas
+    baseChart
+    style="height: 400px;"
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [attr.type]="barChartType"
+    [legend]="barChartLegend"
+  >
+  </canvas>
+</div>
+<ng-template #blank>
+  <div class="text-center" style="margin: 20px">
+    <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
+    <img src="assets/no_data.png" alt="" width="" />
+    <h6 class="text-center text-muted" style="font-size: 0.8em">
+      Aucune donnée
+    </h6>
+  </div>
+</ng-template>

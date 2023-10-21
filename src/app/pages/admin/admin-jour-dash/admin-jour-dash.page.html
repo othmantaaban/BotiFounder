@@ -1,0 +1,28 @@
+
+<ion-content>
+  <h6 style="text-align: center;margin-top: 20px;"><span style="font-weight: bold;">Suivi Administratif</span> > Vue Journalière</h6>
+  <app-cards-admin [items]="itemsAdmin"></app-cards-admin>
+  <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+    <app-listing-administration [items]="absentsList" Title="Personnel absent"></app-listing-administration>
+  </ion-card>
+  <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+    <app-listing-admin2 [items]="demandesList" [Title]="'Demandes/Réclamations reçues'"></app-listing-admin2>
+  </ion-card>
+  <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+    <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">Demandes par Etat de traitement</span></h6>
+    <app-horizontal-bar-chart [barChartLabels]="dmdTypeLabels" [barChartData]="dmdTypeData" [barChartLegend]="false"></app-horizontal-bar-chart>
+  </ion-card>
+  <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+    <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">Message par Etat </span></h6>
+    <app-horizontal-bar-chart [barChartLabels]="msgEtatsLabels" [barChartData]="msgEtatsData" [barChartLegend]="false"></app-horizontal-bar-chart>
+  </ion-card>
+  <!-- <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+    <app-listing-admin [items]="messagesList" [Title]="'Messages reçus'"></app-listing-admin>
+  </ion-card> -->
+  
+    <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
+      <app-listing-admin2 [items]="messagesList" [Title]="'Messages reçus'"></app-listing-admin2>
+    </ion-card>
+
+</ion-content>
+  <!-- <app-date-segments [listPaths]="pathList" active="0"></app-date-segments> -->

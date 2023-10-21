@@ -1,0 +1,32 @@
+<h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">{{Title}}</span></h6>
+  <ion-row *ngIf="items.length!=0 as value; else blank" style="margin: 10px;">
+  <ion-col style="padding: 0;margin-bottom: 0px;" *ngFor="let item of items;" size="6">
+    <ion-card style="margin-top: 0;margin-bottom:10px;height: 80px;">
+    <ion-row>
+      <ion-col size="3"  style="padding-right: 15px;">
+        <!-- <ion-icon style="font-size: 16px;" name="person"></ion-icon> -->
+        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <circle cx="18.5" cy="18.5" r="18.5" fill="url(#pattern0)"/>
+          <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_15_446" transform="translate(-0.388889) scale(0.00444444)"/>
+          </pattern>
+          <image id="image0_15_446" width="400" height="225" xlink:href="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"/>
+          </defs>
+          </svg> 
+      </ion-col>
+      <ion-col size="9" style="padding-left: 15px;">
+        <span style="font-size: 12px;color: black !important;"> <span style="font-weight: 700;">{{item.User}}</span> <br> <span style="font-size: 0.8em; color: #A8A8A8 !important;">{{item.Role}}</span></span></ion-col>
+    </ion-row>
+  </ion-card>
+  </ion-col>
+  </ion-row>
+
+  <ng-template #blank>
+    <div class="text-center" style="margin:20px">
+      <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
+    <img src="assets/no_data.png" alt="" width="">
+    <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
+    </div>
+  </ng-template>
+

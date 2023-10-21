@@ -1,0 +1,21 @@
+ion-tab-bar {
+	--ion-color-primary: var(--main-color);
+}
+
+ion-fab{
+    --ion-color-primary: var(--main-color);
+}
+
+.tab-selected{
+    svg{
+        path{
+            fill: var(--main-color);
+        }
+    }
+}
+
+
+ion-tab-button {
+    --padding-start: 0; 
+    --padding-end: 0; 
+}

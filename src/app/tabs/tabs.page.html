@@ -1,0 +1,54 @@
+<ion-tabs (ionTabsWillChange)="tabWillChange($event)">
+  <ion-tab-bar slot="bottom"  (ionTabsDidChange)="tabWillChange($event)">
+    <ion-tab-button tab="finance-dash" style="background:transparent">
+      <ion-icon style="font-size: 24px;" name="card"></ion-icon>
+      Finance
+    </ion-tab-button>
+  
+    <ion-tab-button tab="admin" style="background:transparent; margin-right: 50px;">
+      
+      <ion-icon style="font-size: 24px;" name="person"></ion-icon>
+      Administration
+    </ion-tab-button>
+
+    <!-- <ion-tab-button class="inscri" tab="suivi-inscription" style="background:transparent">
+      <ion-icon style="font-size: 24px;" name="people"></ion-icon>
+      Inscriptions
+    </ion-tab-button> -->
+
+
+    <ion-tab-button tab="pedag-dash" style="background:transparent">
+      <ion-icon style="font-size: 24px;" name="school"></ion-icon>
+      Pédagogie
+    </ion-tab-button>
+
+    <ion-tab-button tab="usage-dash" style="background:transparent">
+      <ion-icon style="font-size: 24px;" name="eye"></ion-icon>
+      Usage
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>
+
+<ion-fab style="margin-top:15px ;margin-bottom:10px" edge="false" horizontal="center" slot="fixed" vertical="bottom"
+  class="fab-bottom">
+  <ion-fab-button size="large" color="" (click)="gotoInscriptions()">
+    <ion-icon style="font-size: 32px;" name="people"></ion-icon>
+    <!-- <svg width="28" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M15.0458 0.588221C14.1784 -0.196074 12.8216 -0.196074 11.9542 0.588221L1.05633 10.4424C0.38205 11.0521 0 11.9004 0 12.7879V24.7722C0 26.5548 1.51103 28 3.375 28H6.75C8.61397 28 10.125 26.5548 10.125 24.7722V19.3925C10.125 18.7983 10.6287 18.3166 11.25 18.3166H15.75C16.3713 18.3166 16.875 18.7983 16.875 19.3925V24.7722C16.875 26.5548 18.3861 28 20.25 28H23.625C25.4889 28 27 26.5548 27 24.7722V12.7879C27 11.9004 26.618 11.0521 25.9436 10.4424L15.0458 0.588221Z"
+        fill="white" />
+    </svg> -->
+  </ion-fab-button>
+</ion-fab>
+
+
+    <!-- <ion-tab-button tab="suivi-inscription" style="background:transparent">
+      <ion-icon style="font-size: 24px;" name="people"></ion-icon>
+      Inscriptions
+    </ion-tab-button> -->
+
+    <!-- <ion-tab-button tab="pedag-dash" style="background:transparent">
+      <ion-label style="font-size:0.8em"></ion-label>
+    </ion-tab-button>  -->

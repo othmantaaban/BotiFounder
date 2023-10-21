@@ -1,0 +1,50 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content>
+
+  <ion-grid class="h-100 main-background">
+    <ion-row class="h-100 ion-align-items-center">
+      <ion-col size="12">
+        <div *ngIf="school" class="ion-text-center school-presentation">
+          <img [src]="school.logo" height="140px" alt="">
+          <h1>{{school.name}}</h1>
+        </div>
+        <ion-card class="ion-padding-vertical ion-margin-top">
+          <ion-card-content>
+              <ion-grid [formGroup]="loginForm">
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <h4>Log In</h4>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <input type="text" class="rounded-input" placeholder="Login" formControlName="login" >
+                    
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <input type="password" class="rounded-input" placeholder="Password" formControlName="password" >
+                    
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <button class="btn btn-main btn-rounded btn-block ion-margin-top" [disabled]="!loginForm.valid" (click)="onSignIn()">
+                      Log In
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+          </ion-card-content>
+        </ion-card>
+        <h6 (click)="changeSchool()">Change the school</h6>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
