@@ -16,7 +16,8 @@ export class AdminJourDashPage implements OnInit {
   constructor(
     private adminService : AdministrationService,private cdr: ChangeDetectorRef,public loadingController: LoadingController,private sharedService:SharedService
   ) {
-    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe(()=>{
+    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
+      if(elt.value=="jour"&&elt.tab=='admin')
       this.presentLoadingWithOptions();
     })
    }

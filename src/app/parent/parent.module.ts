@@ -9,7 +9,7 @@ import { CardsAdminComponent } from '../components/cards-admin/cards-admin.compo
 import { ListingAdminComponent } from '../components/listing-admin/listing-admin.component';
 import { DonutChartComponent } from '../components/donut-chart/donut-chart.component';
 import { ListingFinanceComponent } from '../components/listing-finance/listing-finance.component';
-import { PieChartComponent } from '../components/pie-chart/pie-chart.component';
+// import { PieChartComponent } from '../components/pie-chart/pie-chart.component';
 import { ListingDiscountComponent } from '../components/listing-discount/listing-discount.component';
 import { CardsPedgComponent } from '../components/cards-pedg/cards-pedg.component';
 import { CardsPedagv2Component } from '../components/cards-pedagv2/cards-pedagv2.component';
@@ -26,6 +26,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgChartsModule } from 'ng2-charts';
 import { IonicModule } from '@ionic/angular';
 import { ComboChartComponent } from '../components/combo-chart/combo-chart.component';
+import { PieChartComponentModule } from '../components/pie-chart/pie-chart.component.module';
 // import { SwiperModule } from 'swiper/angular';
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { ComboChartComponent } from '../components/combo-chart/combo-chart.compo
     IonicModule,
     ScrollingModule,
     NgChartsModule,
+    PieChartComponentModule
     // SwiperModule
   ],
   declarations: [
@@ -50,7 +52,7 @@ import { ComboChartComponent } from '../components/combo-chart/combo-chart.compo
     ListingAdminComponent,
     DonutChartComponent,
     ListingFinanceComponent,
-    PieChartComponent,
+    // PieChartComponent,
     ListingDiscountComponent,
     VerticalBarChartComponent,
     ListingAdmin2Component,
@@ -74,7 +76,7 @@ import { ComboChartComponent } from '../components/combo-chart/combo-chart.compo
     ListingAdminComponent,
     DonutChartComponent,
     ListingFinanceComponent,
-    PieChartComponent,
+    // PieChartComponent,
     ListingDiscountComponent,
     VerticalBarChartComponent,
     ListingAdmin2Component,

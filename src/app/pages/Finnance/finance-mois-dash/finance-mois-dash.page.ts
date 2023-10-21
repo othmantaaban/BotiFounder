@@ -139,13 +139,15 @@ export class FinanceMoisDashPage implements OnInit {
   clickEventSubscription:Subscription;
 
   constructor(
-    private financeService : FinanceService,private cdr: ChangeDetectorRef,private sharedService:SharedService, 
+    private financeService : FinanceService,
+    private cdr: ChangeDetectorRef,
+    private sharedService:SharedService, 
     private api : ApiService,
     private loadingController : LoadingController
 
   ) {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
-      if (elt.value == "mois") {
+      if (elt.value == "mois"&&elt.tab=='fin') {
         this.callApi();
       }
     })

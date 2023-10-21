@@ -35,8 +35,10 @@ export class PedagJourDashPage implements OnInit {
   constructor(
     private pedagService: PedagServiceService,private cdr: ChangeDetectorRef,public loadingController: LoadingController,private sharedService:SharedService
   ) {
-    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe(()=>{
-      // this.callApi();
+    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
+      if(elt.value=="jour"&&elt.tab=='pedag')
+      this.callApi();
+
       this.presentLoadingWithOptions()
     })
    }

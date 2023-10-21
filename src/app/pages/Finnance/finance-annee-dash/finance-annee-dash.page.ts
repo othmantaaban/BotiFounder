@@ -88,7 +88,7 @@ export class FinanceAnneeDashPage implements OnInit {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
       console.log(elt);
       
-      if(elt.value == "annee") { 
+      if(elt.value == "annee"&&elt.tab=='fin') { 
         this.callApi();
       }
     })

@@ -18,9 +18,10 @@ export class UsageJourDashPage implements OnInit {
   constructor(
     private usageService: UsageService, private cdr: ChangeDetectorRef, public loadingController: LoadingController, private sharedService: SharedService
   ) {
-    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe(() => {
-      // this.callApi();
+    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
+      if(elt.value=="jour"&&elt.tab=='usage')
       this.presentLoadingWithOptions()
+      // this.callApi();
     })
   }
 

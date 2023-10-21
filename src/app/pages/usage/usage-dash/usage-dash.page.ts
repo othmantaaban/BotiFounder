@@ -21,8 +21,11 @@ export class UsageDashPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.datasegment.ngOnDestroy()
+    // this.datasegment.ngOnDestroy()
   }
 
+  ionViewWillEnter() {
+    // this.datasegment.ngOnInit()
+  }
 
 }

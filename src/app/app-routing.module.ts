@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    // canActivate: [SchoolGuardService,AuthGuardService],
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
@@ -35,18 +35,22 @@ const routes: Routes = [
   },
   {
     path: 'finance-dash',
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./pages/Finnance/finance-dash/finance-dash.module').then( m => m.FinanceDashPageModule)
   },
   {
     path: 'admin',
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./pages/admin/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
     path: 'pedag-dash',
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./pages/pedag/pedag-dash/pedag-dash.module').then( m => m.PedagDashPageModule)
   },
   {
     path: 'usage-dash',
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./pages/usage/usage-dash/usage-dash.module').then( m => m.UsageDashPageModule)
   },
 

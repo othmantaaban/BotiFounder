@@ -13,9 +13,10 @@ export class CardsFinanceComponent implements OnInit {
   slideOpts = {
     initialSlide: 0,
     speed: 600,
+    pager: true,
     // loop: true,
     centeredSlides: true,
-    // spaceBetween: 20,
+    spaceBetween: 5,
     // autoplay: true
   };
   

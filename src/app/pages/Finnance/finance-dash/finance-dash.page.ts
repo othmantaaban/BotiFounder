@@ -1,12 +1,7 @@
-import { ChangeDetectorRef, Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
-import { ChartData } from 'chart.js';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { DateSegmentsComponent } from 'src/app/components/date-segments/date-segments.component';
-import { FinanceService } from 'src/app/finance.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { FinanceJourDashPage } from '../finance-jour-dash/finance-jour-dash.page';
-import { FinanceJourDashPageModule } from '../finance-jour-dash/finance-jour-dash.module';
 import { Router } from '@angular/router';
 
 @Component({
@@ -65,12 +60,13 @@ export class FinanceDashPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.datesegment.ngOnInit()
     // this.jourRef.callApi();
+    
   }
 
   ionViewWillLeave() {
     // this.segmentCmp.ngOnDestroy()
-    this.datesegment.ngOnDestroy()
   }
 
   

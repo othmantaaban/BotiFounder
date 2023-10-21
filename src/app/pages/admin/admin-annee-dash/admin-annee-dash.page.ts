@@ -14,7 +14,8 @@ export class AdminAnneeDashPage implements OnInit {
     private adminService:AdministrationService,
     private sharedService: SharedService
   ) {
-    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe(()=>{
+    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
+      if(elt.value=="annee"&&elt.tab=='admin')
       this.callApi()
       // this.presentLoadingWithOptions();
     })

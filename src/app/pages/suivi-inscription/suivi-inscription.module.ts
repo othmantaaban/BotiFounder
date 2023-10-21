@@ -10,6 +10,7 @@ import { SuiviInscriptionPage } from './suivi-inscription.page';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { NgChartsModule } from 'ng2-charts';
 import { ParentModule } from 'src/app/parent/parent.module';
+import { PieChartComponentModule } from 'src/app/components/pie-chart/pie-chart.component.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ParentModule } from 'src/app/parent/parent.module';
     SuiviInscriptionPageRoutingModule,
     NgApexchartsModule,
     NgChartsModule,
-    ParentModule
+    ParentModule,
+    PieChartComponentModule
   ],
   declarations: [
     SuiviInscriptionPage,

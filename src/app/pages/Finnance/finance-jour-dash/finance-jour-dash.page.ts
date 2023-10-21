@@ -175,7 +175,7 @@ export class FinanceJourDashPage implements OnInit {
     this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
       // this.callApi();
 
-      if (elt.value == "jour") {
+      if (elt.value == "jour"&&elt.tab=='fin') {
         this.callApi()
       }
     })

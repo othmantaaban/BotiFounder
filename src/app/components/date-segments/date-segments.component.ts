@@ -32,6 +32,9 @@ export class DateSegmentsComponent implements OnInit {
   @Input('defaultValue') defaultValue:string;
   // @ts-ignore
   @Input('active') active:any;
+  
+  @Input('tab') tab:any;
+  
 
   public selected=0
 
@@ -40,7 +43,7 @@ export class DateSegmentsComponent implements OnInit {
     private sharedService:SharedService,
     private router: Router,
     private navCtrl : NavController
-  ) { 
+  ) {
   }
   
 
@@ -72,7 +75,7 @@ export class DateSegmentsComponent implements OnInit {
 
       DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
     }
-   this.sharedService.sendClickEvent({value : this.selectedValue, selectedDate: this.selectedDate});
+   this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }
 
   leftDate(){
@@ -92,7 +95,7 @@ export class DateSegmentsComponent implements OnInit {
       DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
     }
     
-    this.sharedService.sendClickEvent({value : this.selectedValue, selectedDate: this.selectedDate});
+    this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }
 
   groupArrayOfObjects = (list, key) => {
@@ -103,9 +106,9 @@ export class DateSegmentsComponent implements OnInit {
   };
 
 
-  onDisplay(item: any){
-    DateSegmentsComponent.dateValue=item
-  }
+  // onDisplay(item: any){
+  //   DateSegmentsComponent.dateValue=item
+  // }
 
   slideOpts = {
     initialSlide: 0,

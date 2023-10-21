@@ -1,7 +1,7 @@
 <ion-grid style="margin-right: 20px;margin-left: 20px;color: black;">
-  <swiper-container class="visible" [pager]="true" [initialSlide]="0" [speed]="600" [centeredSlides]="true">
+  <swiper-container class="visible" [options]="slideOpts">
     <swiper-slide *ngFor="let item of items;">
-      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;width: 100%;"
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;"
         class="card-custom">
         <ion-row style="border-bottom: solid #9c9c9c 1px;">
           <ion-col size="12" style="height: auto;">

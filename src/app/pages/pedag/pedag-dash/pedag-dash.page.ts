@@ -47,6 +47,10 @@ export class PedagDashPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.datesegment.ngOnInit()
+  }
+  
   ionViewWillLeave() {
     this.datesegment.ngOnDestroy()
   }

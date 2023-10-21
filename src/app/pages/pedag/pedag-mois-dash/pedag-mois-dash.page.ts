@@ -84,9 +84,11 @@ export class PedagMoisDashPage implements OnInit {
   constructor(
     private pedagService: PedagServiceService, public loadingController: LoadingController, private sharedService: SharedService
   ) {
-    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe(() => {
-      // this.callApi();
-      this.presentLoadingWithOptions()
+    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
+      if(elt.value=="mois"&&elt.tab=='pedag'){
+        this.presentLoadingWithOptions()
+        // this.callApi();
+      }
     })
   }
 

@@ -52,9 +52,13 @@ export class AdminPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.datesegment.ngOnInit()
+  }
+
   ionViewWillLeave() {
     
-    this.datesegment.ngOnDestroy()
+    // this.datesegment.ngOnDestroy()
   }
 
 

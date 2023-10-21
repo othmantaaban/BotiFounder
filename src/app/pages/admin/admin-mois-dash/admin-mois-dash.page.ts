@@ -15,7 +15,8 @@ export class AdminMoisDashPage implements OnInit {
   clickEventSubscription:Subscription;
 
   constructor(private adminService:AdministrationService,private sharedService:SharedService) {
-    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe(()=>{
+    this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
+      if(elt.value=="mois"&&elt.tab=='admin')
       this.callApi();
     })
    }
