@@ -443,7 +443,7 @@ export class FinanceJourDashPage implements OnInit {
     if(top == undefined) {
       const loading = await this.loadingController.create({
         spinner: null,
-        message: '<h3>Loading Data, Please wait...</h3>',
+        message: 'Loading Data, Please wait...',
         translucent: true,
         cssClass: 'custom-class custom-loading'
       });

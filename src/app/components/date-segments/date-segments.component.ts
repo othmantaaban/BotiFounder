@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IonSegment, NavController } from '@ionic/angular';
+import { IonDatetime, IonSegment, ModalController, NavController } from '@ionic/angular';
 // import { ChartData } from 'chart.js';
 import {FinanceService} from 'src/app/finance.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -12,7 +12,13 @@ import { Router } from '@angular/router';
   templateUrl: './date-segments.component.html',
   styleUrls: ['./date-segments.component.scss'],
 })
+
 export class DateSegmentsComponent implements OnInit {
+
+
+  
+  @ViewChild("datetime") datetime : IonDatetime
+
   // @ts-ignore
   @ViewChild("segment") seg : IonSegment
 
@@ -38,11 +44,14 @@ export class DateSegmentsComponent implements OnInit {
 
   public selected=0
 
+  displayVal : string = "" 
+
   constructor(
     private financeService : FinanceService,
     private sharedService:SharedService,
     private router: Router,
-    private navCtrl : NavController
+    private navCtrl : NavController,
+    private modalCtrl : ModalController
   ) {
   }
   
@@ -54,46 +63,46 @@ export class DateSegmentsComponent implements OnInit {
 
   public selectedIndex=0
 
-  rightDate(){
-
-    if(this.selected<this.itemsList.length-1){
-      // this.selectedIndex=GlobalConstantesComponent.dateValue
-      this.selected+=1
-      console.log(this.selected);
-      console.log(this.itemsList);
-      
-      
-      // DateSegmentsComponent.dateValue=this.itemsList[this.selectedIndex].anglais
-      // GlobalConstantesComponent.dateValue=this.itemsList[this.selectedIndex].
-      // GlobalConstantesComponent.dateValue=this.selectedIndex
-      // this.selectedDate=this.itemsList[GlobalConstantesComponent.dateValue].francais
-      DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
-      // GlobalConstantesComponent.dateValue=this.selectedIndex
-    } else if (this.selectedValue == "mois") {
-      this.selected = 0
-      console.log(this.selected);
-
-      DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
-    }
-   this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
-  }
-
   leftDate(){
+    let date : Date | number = null
+    console.log("enter");
     
-    if(this.selected!=0){
-      // this.selectedIndex=GlobalConstantesComponent.dateValue
-      this.selected-=1
-      // DateSegmentsComponent.dateValue=this.itemsList[this.selectedIndex].anglais
-      // GlobalConstantesComponent.dateValue=this.selectedIndex
-      // this.selectedDate=this.itemsList[GlobalConstantesComponent.dateValue].francais
-      DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
-    // this.itemsList[this.selectedIndex].anglais
+    if(this.selectedValue==="jour"){
+      console.log(DateSegmentsComponent.dateValue);
+      
+      date = new Date(DateSegmentsComponent.dateValue)
+      date.setDate(date.getDate() - 1)
 
-    } else if (this.selectedValue == "mois") {
-      this.selected = this.itemsList.length - 1
-      console.log(this.selected);
-      DateSegmentsComponent.dateValue=this.itemsList[this.selected].anglais
+      // this.formatDate(date)
+
+    } else if(this.selectedValue==="mois") {
+      let v = DateSegmentsComponent.dateValue - 1
+
+      date = v == 0 ? 12: v
+      console.log(date);
+      
     }
+    this.formatDate(date)
+
+
+  this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
+
+}
+
+  rightDate(){
+    console.log("enter");
+    let date : Date | number = null
+    
+    if(this.selectedValue==="jour"){
+      date = new Date(DateSegmentsComponent.dateValue)
+      date.setDate(date.getDate() + 1)
+
+    } else if(this.selectedValue==="mois") {
+      console.log(DateSegmentsComponent.dateValue);
+      
+      date = +DateSegmentsComponent.dateValue + 1
+    }
+    this.formatDate(date)
     
     this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }
@@ -125,16 +134,18 @@ export class DateSegmentsComponent implements OnInit {
   public jourList=[]
   public anneeList=[]
 
+  public dateTimeType = "month"
+
   segmentChanged(ev: any) {
     // ev.preventDefault();
-    console.log(ev.detail.value);
     this.selectedValue = ev.detail.value;
-    console.log(this.itemsList);
+
+    DateSegmentsComponent.dateValue = undefined
+
+    this.dateTimeType = this.selectedValue == "jour" ? "date": "month"
     this.initialize();
-    console.log(this.itemsList);
 
     
-    DateSegmentsComponent.dateValue = undefined
     this.selected = 0
     // this.sharedService.sendClickEvent(this.selectedValue);
     this.navCtrl.navigateRoot(`${this.path}/${ev.detail.value}`)
@@ -174,7 +185,6 @@ export class DateSegmentsComponent implements OnInit {
     
     // this.selectedValue = this.router.getCurrentNavigation().finalUrl.toString().split("/").pop()
     this.selectedValue = "mois"
-    console.log(this.selectedValue);
     
     
     this.initialize();
@@ -182,95 +192,120 @@ export class DateSegmentsComponent implements OnInit {
 
   ngOnDestroy() {
     this.selectedValue = "mois"
-    console.log(this.selectedValue);
     
   }
 
   initialize() {
-    // this.seg.value = "jour"f
-    const c = new Date();
-    let prior = new Date().setDate(c.getDate() - 30);
-    let k=30
-    let daysList=[]
-    while(k>=0){
-      let prior = new Date().setDate(c.getDate() - k);
-      const sf = new Date(prior).toLocaleDateString('fr-FR',{year: 'numeric', month: 'long', day: 'numeric' });
-      const s = new Date(prior).toLocaleDateString('fr-FR');
-      let splitedDate=s.split("/")
-      daysList.push({francais:sf,anglais:splitedDate[2]+"-"+splitedDate[1]+"-"+splitedDate[0]})
-      k-=1
-    }
-    this.jourList=daysList
-
-
-    // Define a list of years
-    let j=5
-    while(j>=0){
-      let currentYear=new Date().getFullYear()+1
-      this.anneeList.push({francais:""+(currentYear-j),anglais:""+(currentYear-j)})
-      j-=1
-    }
-
-    // Define list of months
-    let m=0
-    let suivi=0
-    // const months = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
-    const months = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const monthsDict = {10:9, 9:10, 8:11, 7:12, 6:1, 5:2, 4:3, 3:4, 2:5, 1:6, 0:7};
-    // const mois = ["Septembre", "Octobre", "Novembre", "Decembre","Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août"];
-    
-    const mois = ["Octobre", "Novembre", "Decembre","Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre"];
-    // const mois = ["Octobre", "Novembre", "Decembre","Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Septembre"];
-    let currentMonth : number = new Date().getMonth() + 1
-    
-    // const indexOfMonth : boolean = months.indexOf((elt: any) => { return +elt === +currentMonth})
-    const indexOfMonth = months.indexOf(currentMonth)
-    months.splice(indexOfMonth, 1)
-    let currentMois = mois[indexOfMonth]
-    mois.splice(indexOfMonth, 1)
-    months.push(currentMonth)
-    mois.push(currentMois)
-    
-
-    for(let i=0;i<mois.length;i++){
-        this.moisList.push({francais:mois[i],anglais:months[i]})
-    }
-
-
- 
-
-    
-    // this.selectedValue=this.listPaths[parseInt(this.active)].value
-    // this.itemsList=this.jourList.reverse()
-
+    // this.selectedValue = "jour"
 
     if(this.selectedValue==="jour"){
-    this.itemsList=this.jourList.reverse()
+      // this.itemsList=this.jourList.reverse()
+      let now = Date.now()
+
+      this.formatDate(now)
+      
     }else if(this.selectedValue=== "mois"){
-      this.itemsList=this.moisList.reverse()
+      let now = new Date().getMonth() + 1
+      console.log(now);
+      
+      this.formatDate(now)
     }else if(this.selectedValue=== "annee"){
     this.itemsList=this.anneeList.reverse()
     }
-    // GlobalConstantesComponent.dateValue = this.itemsList[0].francais;
     
-    // if(this.selectedValue==="jour"){
-    // this.itemsList=this.jourList.reverse()
-    // }else if(this.selectedValue==="mois"){
-    // this.itemsList=this.moisList
-    // }else if(this.selectedValue==="annee"){
-    // this.itemsList=this.anneeList.reverse()
-    // }
+  }
 
-    if(this.selectedValue==="mois"){
-      // GlobalConstantesComponent.dateValue=parseInt(Object.keys(monthsDict).find(key => monthsDict[key] === (currentMonth+1))) 
+
+  formatDate(date) {
+    console.log(this.selectedValue);
+    
+    if(this.selectedValue==="jour"){
+      let selectedDate = new Date(date)
+
+      // let x =new Intl.Intl.
+      let dateenFr = new Intl.DateTimeFormat("fr", 
+        // @ts-ignore
+        { dateStyle: 'full'}
+      )
+      let inArr = ["day", "month", "year"]
+      const dateFr = dateenFr.formatToParts(selectedDate).filter(elt => {
+        return inArr.includes(elt.type) ? elt.value : false
+      }).map(elt => {
+        return elt.value
+      }).join(" ")
+            
+      let year = selectedDate.getFullYear()
+      let mois : number | string = selectedDate.getMonth() + 1 
+      let day : number | string = selectedDate.getDate() 
+      // @ts-ignore
+      mois = `${mois}`.length == 1 ? `0${mois}` : mois
+      // @ts-ignore
+      day = `${day}`.length == 1 ? `0${day}` : day
+      
+      console.log(day);
+      console.log(mois);
+      console.log(year);
+      
+      console.log(`${year}-${mois}-${day}`);
+      
+      DateSegmentsComponent.dateValue = `${year}-${mois}-${day}`
+      this.defaultValue = `${year}-${mois}-${day}`
+      this.displayVal = dateFr;
+
+    }else if(this.selectedValue=== "mois"){
+      // this.itemsList=this.moisList.reverse()
+      DateSegmentsComponent.dateValue = `${date}`;
+      // this.defaultValue = `${date}`
+      this.defaultValue = ""
+      
+
+      let d =  new Date()
+      d.setMonth(date - 1);
+
+      // @ts-ignore
+      this.displayVal = d.toLocaleString('fr', {month: 'long'});
+
+    }else if(this.selectedValue=== "annee"){
+      this.itemsList=this.anneeList.reverse()
     }
-    // else{
-    //     GlobalConstantesComponent.dateValue=0
-    //   }
-    // this.selectedDate=this.itemsList[GlobalConstantesComponent.dateValue].francais
-    // DateSegmentsComponent.dateValue=this.itemsList[GlobalConstantesComponent.dateValue].anglais
-    // this.sharedService.sendClickEvent();
+  }
 
+
+  async cancelDateTime() {
+    console.log("cancel");
+    let modal = await this.modalCtrl.getTop()
+    await this.datetime.cancel()
+    await modal.dismiss()
+  }
+
+  cancel(event) {
+    console.log(event);    
+  }
+
+  async confirmDateTime() {
+    console.log(event);
     
+    let modal = await this.modalCtrl.getTop()
+
+    await this.datetime.confirm()
+    
+    await modal.dismiss()
+
+  }
+
+  confirm(event) { 
+    let d : number | Date = null
+    if(this.selectedValue === "jour") {
+      d = new Date(event.target.value)
+      console.log(d);
+      
+    } else {
+      d =  new Date(event.target.value).getMonth() + 1
+      // console.log(d);
+      this.defaultValue = ""
+    }
+    this.formatDate(d)  
+
+    this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }
 }

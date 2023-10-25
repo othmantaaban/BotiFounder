@@ -172,9 +172,14 @@ export class FinanceMoisDashPage implements OnInit {
   async callApi(){ 
     this.loader()
     this.itemsEncaissement=[]
-  
-    let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth() + 1;
-
+    let d = new Date()
+    let val = d.getMonth() + 1
+    if(DateSegmentsComponent.dateValue !== undefined) {
+      d.setMonth(DateSegmentsComponent.dateValue)
+      val = d.getMonth() == 0 ? 12 :d.getMonth()
+    }
+    let date = val;
+    
     this.itemsEncaissement = []
     this.financeService.getEncaissementCardsList(JSON.stringify({date: date, type: "mois"}))
     .subscribe(response => {
@@ -340,7 +345,6 @@ export class FinanceMoisDashPage implements OnInit {
       this.loader_obj.bar_ca_encaiss == true
     ) {
       const loading = await this.loadingController.getTop();
-      console.log("cwfcewfwe");
       
       await loading.dismiss()
     }
@@ -360,7 +364,7 @@ export class FinanceMoisDashPage implements OnInit {
     if(top == undefined) {
       const loading = await this.loadingController.create({
         spinner: null,
-        message: '<h3>Loading Data, Please wait...</h3>',
+        message: 'Loading Data, Please wait...',
         translucent: true,
         cssClass: 'custom-class custom-loading'
       });
