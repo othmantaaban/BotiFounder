@@ -3,6 +3,7 @@ import { ChartData } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { DateSegmentsComponent } from 'src/app/components/date-segments/date-segments.component';
 import { AdministrationService } from 'src/app/services/administration.service';
+import { ApiService } from 'src/app/services/api/api.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -11,10 +12,23 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./admin-mois-dash.page.scss'],
 })
 export class AdminMoisDashPage implements OnInit {
-
   clickEventSubscription:Subscription;
 
-  constructor(private adminService:AdministrationService,private sharedService:SharedService) {
+  public msgCycleData: any = [
+    {data: [], label: '',backgroundColor:"#2B2A64"},
+  ];
+
+  public msgCycleLabels: string[] = [];
+
+  public msgCycleTitle : string = ""
+
+
+
+  constructor(
+    private adminService:AdministrationService,
+    private sharedService:SharedService,
+    private apiService: ApiService
+    ) {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
       if(elt.value=="mois"&&elt.tab=='admin')
       this.callApi();
@@ -86,7 +100,6 @@ export class AdminMoisDashPage implements OnInit {
       ]
     };
   
-    public msgCycleLabels: string[] = [];
     // public msgCycleData: ChartData<'bar'> = {
     //   labels: this.msgCycleLabels,
     //   datasets: [
@@ -99,9 +112,7 @@ export class AdminMoisDashPage implements OnInit {
     //   ]
     // };
 
-    public msgCycleData: any = [
-      {data: [], label: '',backgroundColor:"#2B2A64"},
-    ];
+
   
     public msgDelaisLabels: string[] = ['> 2H', '> 3H', '> 4H'];
     public msgDelaisData: ChartData<'bar'> = {
@@ -154,39 +165,57 @@ export class AdminMoisDashPage implements OnInit {
       }
   
     callApi(){   
-
+      let d = new Date()
+      let val = d.getMonth() + 1
+      if(DateSegmentsComponent.dateValue !== undefined) {
+        d.setMonth(DateSegmentsComponent.dateValue)
+        val = d.getMonth() == 0 ? 12 :d.getMonth()
+      }
+      let date = val;
   
-      let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth();
-      console.log(date);
+      // let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth();
+      // console.log(date);
       
-        this.adminService.getMessagesMois(date).subscribe(response =>{
-        const data=response.result
-        // Cycle prep
-        let dataCycle=data.map((d) => ({Cycle:d.Cycle,Count:1}));
-        let tmpTable = this.groupArrayOfObjects(
-          dataCycle,
-          "Cycle"
-        );
-        const dictCycle = [];
-        for (const [key1, value1] of Object.entries(tmpTable)) {
-          let total=0
-          // console.log("here: ",Object.keys(value1).length)
-          Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
-          dictCycle.push({
-            Cycle: key1,
-            total: total,
-          });
-          total=0
-        }
-        let tmpData=[]
-        let tmpLabels=[]
-        dictCycle.map((d)=>{
-          tmpLabels.push(d.Cycle)
-          tmpData.push(d.total)
-        })
-        console.log("msg cycle data: ",dictCycle)
-        this.msgCycleLabels=tmpLabels
-        this.msgCycleData[0]["data"]=tmpData
+      // this.adminService.getMessagesMois(date)
+      // .subscribe(response =>{
+      //   const data=response.result
+      //   // Cycle prep
+      //   let dataCycle=data.map((d) => ({Cycle:d.Cycle,Count:1}));
+      //   let tmpTable = this.groupArrayOfObjects(
+      //     dataCycle,
+      //     "Cycle"
+      //   );
+      //   const dictCycle = [];
+      //   for (const [key1, value1] of Object.entries(tmpTable)) {
+      //     let total=0
+      //     // console.log("here: ",Object.keys(value1).length)
+      //     Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
+      //     dictCycle.push({
+      //       Cycle: key1,
+      //       total: total,
+      //     });
+      //     total=0
+      //   }
+      //   let tmpData=[]
+      //   let tmpLabels=[]
+      //   dictCycle.map((d)=>{
+      //     tmpLabels.push(d.Cycle)
+      //     tmpData.push(d.total)
+      //   })
+      //   console.log("msg cycle data: ",dictCycle)
+      //   this.msgCycleLabels=tmpLabels
+      //   this.msgCycleData[0]["data"]=tmpData
+      // })
+
+      this.apiService.get({period: date}, "get_messages_mois_new")
+      .subscribe(response =>{
+        console.log(response);
+        
+        this.msgCycleData = response?.cycle?.data;
+      
+        this.msgCycleLabels = response?.cycle?.labels;
+
+        this.msgCycleTitle = response?.title
       })
 
       this.adminService.getDemandesMois(date).subscribe(response =>{
