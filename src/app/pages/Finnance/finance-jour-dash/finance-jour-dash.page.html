@@ -154,11 +154,7 @@
       style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;">
       <app-listing-recouvrements 
         [items]="recouvrementsList" 
-        [tabs]="recouvrementsTitles?.tabs ? [
-        recouvrementsTitles?.tabs[0] ? recouvrementsTitles?.tabs[0] : 'Eléve', 
-        recouvrementsTitles?.tabs[1] ? recouvrementsTitles?.tabs[1] : 'Action',  
-        recouvrementsTitles?.tabs[2] ? recouvrementsTitles?.tabs[2] : 'Date Action',
-        ] : ['Eléve', 'Action', 'Date Action']" 
+        [tabs]="recouvrementsTitles?.tabs ? recouvrementsTitles?.tabs : ['Eléve', 'Action', 'Date Action']" 
         [Title]="recouvrementsTitles?.title ? recouvrementsTitles?.title : 'Recouvrements'"></app-listing-recouvrements>
     </ion-card>
 
@@ -241,14 +237,14 @@
 
     <!--  -->
     <ion-card *ngIf="depenses?.listDepense?.visible"  class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
-      <!-- <app-listing-finance [items]="retardsList" [Title]="'Top 30 Retards'"></app-listing-finance> -->
-      <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
-        <span style="font-size: 0.9em ;">
-          {{ depenses?.listDepense?.title }}
-        </span>
-      </h6>
 
-      <ng-container  *ngIf="listDepenses.length else listDepense"
+      <app-listing-recouvrements 
+        [items]="listDepenses" 
+        [tabs]="depenses?.listDepense?.titles?.tabs ? depenses?.listDepense?.titles?.tabs : []" 
+        [Title]="depenses?.listDepense?.titles?.title ? depenses?.listDepense?.titles?.title : 'Liste des dépenses'">
+      </app-listing-recouvrements>
+
+      <!-- <ng-container  *ngIf="listDepenses.length else listDepense"
       >
         <div class="listing-depense">
           <div class="item" *ngFor="let item of listDepenses">
@@ -260,11 +256,10 @@
       </ng-container>
       <ng-template #listDepense>
         <div class="text-center" style="margin:20px">
-          <!-- <img src="https://cdn-icons-png.flaticon.com/128/7486/7486767.png" alt="" width=""> -->
           <img src="assets/no_data.png" alt="" width="">
           <h6 class="text-center text-muted" style="font-size:0.8em">Aucune donnée</h6>
         </div>
-      </ng-template>
+      </ng-template> -->
     </ion-card>
           
 

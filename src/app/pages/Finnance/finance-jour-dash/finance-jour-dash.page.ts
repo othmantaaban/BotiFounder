@@ -330,6 +330,8 @@ export class FinanceJourDashPage implements OnInit {
       this.depensesPrestataireData = response.prestataire.data
 
       this.listDepenses = response.listDepense.list
+      console.log(response?.listDepense?.titles);
+      
 
       this.loader_obj.depense = true
       this.loader_dissmis()

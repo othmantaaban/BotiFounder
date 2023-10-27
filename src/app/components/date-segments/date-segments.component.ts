@@ -76,18 +76,32 @@ export class DateSegmentsComponent implements OnInit {
       // this.formatDate(date)
 
     } else if(this.selectedValue==="mois") {
-      let v = DateSegmentsComponent.dateValue - 1
+      let checkDate = new Date()
+      if(DateSegmentsComponent.dateValue != undefined) {
+        checkDate.setMonth(DateSegmentsComponent.dateValue)
+      }
+      console.log(checkDate.getMonth());
+      
+      if(checkDate.getMonth() != 9) {
+        let v = DateSegmentsComponent.dateValue == -1 ? 8 : DateSegmentsComponent.dateValue -1 
+        date = v == 0 ? 12: v
+        console.log(date);
+      } else{
+        DateSegmentsComponent.dateValue = -1
+        this.displayVal = "Frais Annuel" 
+        date = null
+      }
 
-      date = v == 0 ? 12: v
-      console.log(date);
       
     }
-    this.formatDate(date)
+    if(date) {
+      this.formatDate(date)
+    }
 
 
   this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
 
-}
+  }
 
   rightDate(){
     console.log("enter");
@@ -96,13 +110,33 @@ export class DateSegmentsComponent implements OnInit {
     if(this.selectedValue==="jour"){
       date = new Date(DateSegmentsComponent.dateValue)
       date.setDate(date.getDate() + 1)
-
+      
     } else if(this.selectedValue==="mois") {
       console.log(DateSegmentsComponent.dateValue);
+      let checkDate = new Date()
+      if(DateSegmentsComponent.dateValue != undefined) {
+        checkDate.setMonth(DateSegmentsComponent.dateValue)
+      }
+      console.log(checkDate.getMonth());
+      // checkDate.setMonth(DateSegmentsComponent.dateValue)
       
-      date = +DateSegmentsComponent.dateValue + 1
+      if(checkDate.getMonth() != 8) {
+        date = DateSegmentsComponent.dateValue == -1 ? 9 : +DateSegmentsComponent.dateValue + 1 
+        // date = v == 0 ? 12: v
+        console.log(date);
+      } else{
+        DateSegmentsComponent.dateValue = -1
+        this.displayVal = "Frais Annuel" 
+        date = null
+      }
+      // console.log(DateSegmentsComponent.dateValue);
+      
+      // date = +DateSegmentsComponent.dateValue + 1
     }
-    this.formatDate(date)
+    
+    if(date) {
+      this.formatDate(date)
+    }
     
     this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }

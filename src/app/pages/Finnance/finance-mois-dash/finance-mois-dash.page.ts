@@ -175,8 +175,12 @@ export class FinanceMoisDashPage implements OnInit {
     let d = new Date()
     let val = d.getMonth() + 1
     if(DateSegmentsComponent.dateValue !== undefined) {
-      d.setMonth(DateSegmentsComponent.dateValue)
-      val = d.getMonth() == 0 ? 12 :d.getMonth()
+      if(DateSegmentsComponent.dateValue != -1) {
+        d.setMonth(DateSegmentsComponent.dateValue)
+        val = d.getMonth() == 0 ? 12 :d.getMonth()
+      } else {
+        val = 0
+      }
     }
     let date = val;
     
@@ -290,7 +294,7 @@ export class FinanceMoisDashPage implements OnInit {
 
     this.listDepenses = [];
 
-    this.api.get({period: date, type: "mois"}, "get_depenses_data")
+    this.api.get({period: date, type: "mois", test: 10}, "get_depenses_data")
     .subscribe(response => {
       this.depenses = response
       this.depensesCategLabels = response.category.labels
@@ -345,8 +349,9 @@ export class FinanceMoisDashPage implements OnInit {
       this.loader_obj.bar_ca_encaiss == true
     ) {
       const loading = await this.loadingController.getTop();
-      
-      await loading.dismiss()
+      if(loading) {
+        await loading.dismiss()
+      }
     }
   }
 

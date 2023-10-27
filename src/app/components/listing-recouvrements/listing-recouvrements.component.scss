@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+}
+.parent {
+    overflow-x: scroll;
+    .table {
+        margin: 19px;
+        thead {
+            tr {
+                // margin: 19px;
+                border-bottom: 1px solid #E4E3E3;
+                th {
+                    padding-bottom: 10px;
+                    span {
+    
+                        font-weight: 900;
+                        font-size: 12px;
+                    }
+                }
+    
+            }
+        }
+        tbody {
+            tr {
+                // margin: 19px;
+                // border: none;
+                border-bottom: 0px solid #E4E3E3;
+
+                td {
+                    padding: 10px !important;
+                    span {
+                        padding: 0 !important;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -15,4 +15,8 @@ export class ListingRecouvrementsComponent implements OnInit {
 
   ngOnInit() {}
 
+  getObjKeys(item) : any[] {
+    return Object.getOwnPropertyNames(item)
+  }
+
 }

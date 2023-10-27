@@ -21,6 +21,15 @@ export class AdminMoisDashPage implements OnInit {
   public msgCycleLabels: string[] = [];
 
   public msgCycleTitle : string = ""
+// -----------------message-------------------------------
+
+  public dmdNatureLabels: string[] = [];
+
+  public dmdNatureData = [
+    {data: [], label: '',backgroundColor:["#2B2A64", "#F7643B", "#EE386E","#C4013B"]},
+  ];
+
+// -----------------demande-------------------------------
 
 
 
@@ -140,11 +149,8 @@ export class AdminMoisDashPage implements OnInit {
       {data: [], label: '',backgroundColor:["#2B2A64", "#F7643B", "#EE386E","#C4013B"]},
     ];
   
-    public dmdNatureLabels: string[] = [];
 
-    public dmdNatureData = [
-      {data: [], label: '',backgroundColor:["#2B2A64", "#F7643B", "#EE386E","#C4013B"]},
-    ];
+
 
        // Group By Function
        groupArrayOfObjects = (list, key) => {
@@ -301,6 +307,15 @@ export class AdminMoisDashPage implements OnInit {
         this.dmdEtatLabels=tmpLabels
         this.dmdEtatData[0]["data"]=tmpData
       })
+
+      this.apiService.get({period: date}, "get_demandes_mois_new")
+      .subscribe(response =>{
+        console.log(response);
+        this.dmdNatureLabels = response?.nature?.labels
+        this.dmdNatureData = response?.nature?.data
+        // 
+      })
+
   
     }
 
