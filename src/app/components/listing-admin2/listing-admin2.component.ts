@@ -11,6 +11,7 @@ export class ListingAdmin2Component implements OnInit {
   // @ts-ignore
   @Input() Title:string;
   @Input() items=[];
+  
   ngOnInit() {}
 
 }

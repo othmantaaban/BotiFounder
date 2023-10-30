@@ -28,13 +28,13 @@ export class FinanceMoisDashPage implements OnInit {
 
   public barChartData1 : any = [
     {
-      data: [], 
+      data: [],
       label: 'CA',
       backgroundColor:"#EE386E",
       type:"bar"
     },
     {
-      data: [], 
+      data: [],
       label: 'Encaissements',
       backgroundColor:"#2B2A64",
       type:"bar"
@@ -47,13 +47,13 @@ export class FinanceMoisDashPage implements OnInit {
 
   public barChartData2 : any = [
     {
-      data: [], 
+      data: [],
       label: 'CA',
       backgroundColor:"#EE386E",
       type:"bar"
     },
     {
-      data: [], 
+      data: [],
       label: 'Encaissements',
       backgroundColor:"#2B2A64",
       type:"bar"
@@ -93,7 +93,7 @@ export class FinanceMoisDashPage implements OnInit {
   public serviceData : any = [
     {data: [], label: '',backgroundColor:["#2B2A64", "#F7643B", "#EE386E","#C4013B"]},
   ]
-  
+
   public modeLabels = [];
   public modeData = [
     {data: [], label: '',backgroundColor:["#2B2A64", "#F7643B", "#EE386E","#C4013B"]},
@@ -120,10 +120,10 @@ export class FinanceMoisDashPage implements OnInit {
   // depense variables
   public depensesCategLabels = []
   public depensesCategData = []
-    
+
   public depensesPrestataireLabels = []
   public depensesPrestataireData = []
-    
+
   public listDepenses = []
 
   depenses : any = [];
@@ -132,7 +132,7 @@ export class FinanceMoisDashPage implements OnInit {
 
 
 
-    
+
   public itemsEncaissement=[]
 
 
@@ -141,7 +141,7 @@ export class FinanceMoisDashPage implements OnInit {
   constructor(
     private financeService : FinanceService,
     private cdr: ChangeDetectorRef,
-    private sharedService:SharedService, 
+    private sharedService:SharedService,
     private api : ApiService,
     private loadingController : LoadingController
 
@@ -159,9 +159,9 @@ export class FinanceMoisDashPage implements OnInit {
 
    numFormatter(num) {
     if(num > 999 && num < 1000000){
-        return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+        return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million
     }else if(num > 1000000){
-        return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+        return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million
     }else if(num < 900){
         return num; // if value < 1000, nothing to do
     }
@@ -169,8 +169,8 @@ export class FinanceMoisDashPage implements OnInit {
 
   // getRetardsMoisList : etat_impayes_parents
 
-  async callApi(){ 
-    this.loader()
+  async callApi(){
+    this.api.loader()
     this.itemsEncaissement=[]
     let d = new Date()
     let val = d.getMonth() + 1
@@ -183,11 +183,11 @@ export class FinanceMoisDashPage implements OnInit {
       }
     }
     let date = val;
-    
+
     this.itemsEncaissement = []
     this.financeService.getEncaissementCardsList(JSON.stringify({date: date, type: "mois"}))
     .subscribe(response => {
-      
+
       response.forEach(element => {
           let item = {
             title: element.title,
@@ -201,7 +201,7 @@ export class FinanceMoisDashPage implements OnInit {
 
       this.loader_obj.card_infos = true;
 
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
 
     })
 
@@ -223,17 +223,17 @@ export class FinanceMoisDashPage implements OnInit {
 
 
       this.loader_obj.ca_prevu = true
-      this.loader_dissmis()
-    }) 
-    
+      this.api.loader_dissmis(this.loader_obj)
+    })
+
     this.cycleLabels = []
     this.cycleData = []
 
-          
+
     this.modeLabels = []
     this.modeData = []
 
-    
+
     this.serviceLabels = []
     this.serviceData = []
 
@@ -245,21 +245,21 @@ export class FinanceMoisDashPage implements OnInit {
       this.cycleLabels = response?.cycle?.labels
       this.cycleData = response?.cycle?.data
 
-            
+
       this.modeLabels = response?.paiement?.labels
-      this.modeData = response?.paiement?.data 
+      this.modeData = response?.paiement?.data
 
       this.serviceLabels = response?.service?.labels
       this.serviceData = response?.service?.data
 
       this.loader_obj.encaiss = true
 
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
     })
 
     this.cycleRetData = []
     this.cycleRetLabels = []
-    
+
     this.serviceRetData = []
     this.serviceRetLabels = []
 
@@ -274,7 +274,7 @@ export class FinanceMoisDashPage implements OnInit {
 
       this.cycleRetData = response.cycle.data
       this.cycleRetLabels = response.cycle.labels
-      
+
       this.serviceRetData = response.service.data
       this.serviceRetLabels = response.service.labels
 
@@ -282,7 +282,7 @@ export class FinanceMoisDashPage implements OnInit {
 
       this.loader_obj.retard = true
 
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
     })
 
     this.depenses = []
@@ -306,7 +306,7 @@ export class FinanceMoisDashPage implements OnInit {
       this.listDepenses = response.listDepense.list
 
       this.loader_obj.depense = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
     })
 
 
@@ -323,59 +323,17 @@ export class FinanceMoisDashPage implements OnInit {
       this.bar_title2 = elt.title1
 
       this.loader_obj.bar_ca_encaiss = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
     })
 
-    
+
 
   }
 
    // Group By Function
 
 
-  ngOnInit() {  
+  ngOnInit() {
   }
 
-
-  async loader_dissmis() {
-    console.log(this.loader_obj);
-    
-    if(
-      this.loader_obj.ca_prevu == true && 
-      this.loader_obj.retard == true && 
-      this.loader_obj.encaiss == true && 
-      this.loader_obj.depense == true && 
-      this.loader_obj.card_infos == true &&
-      this.loader_obj.bar_ca_encaiss == true
-    ) {
-      const loading = await this.loadingController.getTop();
-      if(loading) {
-        await loading.dismiss()
-      }
-    }
-  }
-
-  async loader() {
-    this.loader_obj = {
-      card_infos : false,
-      ca_prevu : false,
-      encaiss : false,
-      retard : false,
-      depense : false,
-      bar_ca_encaiss: false
-    }
-    const top = await this.loadingController.getTop()
-    console.log(top)
-    if(top == undefined) {
-      const loading = await this.loadingController.create({
-        spinner: null,
-        message: 'Loading Data, Please wait...',
-        translucent: true,
-        cssClass: 'custom-class custom-loading'
-      });
-  
-      await loading.present();
-    }
-
-  }
 }

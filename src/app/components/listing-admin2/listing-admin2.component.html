@@ -1,13 +1,13 @@
 <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">{{Title}}</span></h6>
-<cdk-virtual-scroll-viewport *ngIf="items.length!=0 as value; else blank" itemSize="300" minBufferPx="900" maxBufferPx="1350" style="height: 300px;">
+<cdk-virtual-scroll-viewport *ngIf="+items.length!==0 as value; else blank" itemSize="300" minBufferPx="900" maxBufferPx="1350" style="height: 300px;">
 <ion-row style="margin: 19px;" *ngFor="let item of items;">
   <ion-col size="4">
     <ion-avatar>
-      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" style="height:70%;width:70%" />
+      <img alt="Silhouette of a person's head" [src]="item.pic" style="height:70%;width:70%" />
     </ion-avatar>
   </ion-col>
   <ion-col size="8">
-  <h5 style="margin: 0;"> <span style="font-weight: bold;">{{item.user}}</span> <br> <span style="font-size: 0.8em;">{{item.categorie}}</span></h5> 
+  <h5 style="margin: 0;"> <span style="font-weight: bold;">{{item.nom}}</span> <br> <span style="font-size: 0.8em;">{{item.nature}}</span></h5>
 </ion-col>
 
 <!-- <ion-col size="5">

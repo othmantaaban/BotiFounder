@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class DateSegmentsComponent implements OnInit {
 
 
-  
+
   @ViewChild("datetime") datetime : IonDatetime
 
   // @ts-ignore
@@ -24,12 +24,12 @@ export class DateSegmentsComponent implements OnInit {
 
   @Input('path') path:string = '';
   public Select:string = '';
-  
+
   public itemsList: any=[];
   @Input('listPaths') listPaths:any[] = [];
   // @ts-ignore
   public static dateValue:any;
-  
+
   @Input('selectedValue') selectedValue:string = "mois";
   // @ts-ignore
   public selectedDate:string;
@@ -38,13 +38,13 @@ export class DateSegmentsComponent implements OnInit {
   @Input('defaultValue') defaultValue:string;
   // @ts-ignore
   @Input('active') active:any;
-  
+
   @Input('tab') tab:any;
-  
+
 
   public selected=0
 
-  displayVal : string = "" 
+  displayVal : string = ""
 
   constructor(
     private financeService : FinanceService,
@@ -53,8 +53,9 @@ export class DateSegmentsComponent implements OnInit {
     private navCtrl : NavController,
     private modalCtrl : ModalController
   ) {
+
   }
-  
+
 
 
   clickMe(){
@@ -66,33 +67,38 @@ export class DateSegmentsComponent implements OnInit {
   leftDate(){
     let date : Date | number = null
     console.log("enter");
-    
+
     if(this.selectedValue==="jour"){
       console.log(DateSegmentsComponent.dateValue);
-      
+
       date = new Date(DateSegmentsComponent.dateValue)
       date.setDate(date.getDate() - 1)
 
       // this.formatDate(date)
 
     } else if(this.selectedValue==="mois") {
-      let checkDate = new Date()
-      if(DateSegmentsComponent.dateValue != undefined) {
-        checkDate.setMonth(DateSegmentsComponent.dateValue)
+      let tab = this.router.url.split("/")[2];
+      let condition = true
+      if(tab == "finance-dash") {
+        let checkDate = new Date()
+        if(DateSegmentsComponent.dateValue != undefined) {
+          checkDate.setMonth(DateSegmentsComponent.dateValue)
+        }
+        console.log(checkDate.getMonth());
+        condition = checkDate.getMonth() != 9
       }
-      console.log(checkDate.getMonth());
-      
-      if(checkDate.getMonth() != 9) {
-        let v = DateSegmentsComponent.dateValue == -1 ? 8 : DateSegmentsComponent.dateValue -1 
+
+      if(condition) {
+        let v = DateSegmentsComponent.dateValue == -1 ? 8 : DateSegmentsComponent.dateValue -1
         date = v == 0 ? 12: v
         console.log(date);
       } else{
         DateSegmentsComponent.dateValue = -1
-        this.displayVal = "Frais Annuel" 
+        this.displayVal = "Frais Annuel"
         date = null
       }
 
-      
+
     }
     if(date) {
       this.formatDate(date)
@@ -106,11 +112,11 @@ export class DateSegmentsComponent implements OnInit {
   rightDate(){
     console.log("enter");
     let date : Date | number = null
-    
+
     if(this.selectedValue==="jour"){
       date = new Date(DateSegmentsComponent.dateValue)
       date.setDate(date.getDate() + 1)
-      
+
     } else if(this.selectedValue==="mois") {
       console.log(DateSegmentsComponent.dateValue);
       let checkDate = new Date()
@@ -119,25 +125,25 @@ export class DateSegmentsComponent implements OnInit {
       }
       console.log(checkDate.getMonth());
       // checkDate.setMonth(DateSegmentsComponent.dateValue)
-      
+
       if(checkDate.getMonth() != 8) {
-        date = DateSegmentsComponent.dateValue == -1 ? 9 : +DateSegmentsComponent.dateValue + 1 
+        date = DateSegmentsComponent.dateValue == -1 ? 9 : +DateSegmentsComponent.dateValue + 1
         // date = v == 0 ? 12: v
         console.log(date);
       } else{
         DateSegmentsComponent.dateValue = -1
-        this.displayVal = "Frais Annuel" 
+        this.displayVal = "Frais Annuel"
         date = null
       }
       // console.log(DateSegmentsComponent.dateValue);
-      
+
       // date = +DateSegmentsComponent.dateValue + 1
     }
-    
+
     if(date) {
       this.formatDate(date)
     }
-    
+
     this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }
 
@@ -179,7 +185,7 @@ export class DateSegmentsComponent implements OnInit {
     this.dateTimeType = this.selectedValue == "jour" ? "date": "month"
     this.initialize();
 
-    
+
     this.selected = 0
     // this.sharedService.sendClickEvent(this.selectedValue);
     this.navCtrl.navigateRoot(`${this.path}/${ev.detail.value}`)
@@ -194,15 +200,15 @@ export class DateSegmentsComponent implements OnInit {
 
   numFormatter(num) {
     if(num > 999 && num < 1000000){
-        return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+        return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million
     }else if(num > 1000000){
-        return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+        return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million
     }else if(num < 900){
         return num; // if value < 1000, nothing to do
     }
   }
 
-  
+
 
    days = (date_1, date_2) =>{
     let difference = date_1.getTime() - date_2.getTime();
@@ -216,17 +222,17 @@ export class DateSegmentsComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.router.getCurrentNavigation().finalUrl.toString());
-    
+
     // this.selectedValue = this.router.getCurrentNavigation().finalUrl.toString().split("/").pop()
     this.selectedValue = "mois"
-    
-    
+
+
     this.initialize();
   }
 
   ngOnDestroy() {
     this.selectedValue = "mois"
-    
+
   }
 
   initialize() {
@@ -237,27 +243,27 @@ export class DateSegmentsComponent implements OnInit {
       let now = Date.now()
 
       this.formatDate(now)
-      
+
     }else if(this.selectedValue=== "mois"){
       let now = new Date().getMonth() + 1
       console.log(now);
-      
+
       this.formatDate(now)
     }else if(this.selectedValue=== "annee"){
     this.itemsList=this.anneeList.reverse()
     }
-    
+
   }
 
 
   formatDate(date) {
     console.log(this.selectedValue);
-    
+
     if(this.selectedValue==="jour"){
       let selectedDate = new Date(date)
 
       // let x =new Intl.Intl.
-      let dateenFr = new Intl.DateTimeFormat("fr", 
+      let dateenFr = new Intl.DateTimeFormat("fr",
         // @ts-ignore
         { dateStyle: 'full'}
       )
@@ -267,21 +273,21 @@ export class DateSegmentsComponent implements OnInit {
       }).map(elt => {
         return elt.value
       }).join(" ")
-            
+
       let year = selectedDate.getFullYear()
-      let mois : number | string = selectedDate.getMonth() + 1 
-      let day : number | string = selectedDate.getDate() 
+      let mois : number | string = selectedDate.getMonth() + 1
+      let day : number | string = selectedDate.getDate()
       // @ts-ignore
       mois = `${mois}`.length == 1 ? `0${mois}` : mois
       // @ts-ignore
       day = `${day}`.length == 1 ? `0${day}` : day
-      
+
       console.log(day);
       console.log(mois);
       console.log(year);
-      
+
       console.log(`${year}-${mois}-${day}`);
-      
+
       DateSegmentsComponent.dateValue = `${year}-${mois}-${day}`
       this.defaultValue = `${year}-${mois}-${day}`
       this.displayVal = dateFr;
@@ -291,7 +297,7 @@ export class DateSegmentsComponent implements OnInit {
       DateSegmentsComponent.dateValue = `${date}`;
       // this.defaultValue = `${date}`
       this.defaultValue = ""
-      
+
 
       let d =  new Date()
       d.setMonth(date - 1);
@@ -313,32 +319,32 @@ export class DateSegmentsComponent implements OnInit {
   }
 
   cancel(event) {
-    console.log(event);    
+    console.log(event);
   }
 
   async confirmDateTime() {
     console.log(event);
-    
+
     let modal = await this.modalCtrl.getTop()
 
     await this.datetime.confirm()
-    
+
     await modal.dismiss()
 
   }
 
-  confirm(event) { 
+  confirm(event) {
     let d : number | Date = null
     if(this.selectedValue === "jour") {
       d = new Date(event.target.value)
       console.log(d);
-      
+
     } else {
       d =  new Date(event.target.value).getMonth() + 1
       // console.log(d);
       this.defaultValue = ""
     }
-    this.formatDate(d)  
+    this.formatDate(d)
 
     this.sharedService.sendClickEvent({value : this.selectedValue,tab: this.tab , selectedDate: this.selectedDate});
   }

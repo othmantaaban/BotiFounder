@@ -19,7 +19,7 @@ export class AdminPage implements OnInit {
     // {vue:'Annee',path:'/tabs/admin',value:'annee'}
   ];
 
-  active 
+  active
   constructor(
     private sharedService: SharedService,
     private navigation : NavController,
@@ -27,7 +27,7 @@ export class AdminPage implements OnInit {
     ) {
       this.sharedService.getClickEvent().subscribe((x)=>{
         let checkIsActive = route.isActive("tabs/finance-dash/jour", true) || route.isActive("tabs/finance-dash/mois", true) || route.isActive("tabs/finance-dash/annee", true)
-        
+
         if(checkIsActive) {
           console.log(this.active);
             switch (this.active) {
@@ -53,11 +53,12 @@ export class AdminPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    // this.navigation.navigateRoot('/tabs/admin/mois')
     this.datesegment.ngOnInit()
   }
 
   ionViewWillLeave() {
-    
+
     // this.datesegment.ngOnDestroy()
   }
 

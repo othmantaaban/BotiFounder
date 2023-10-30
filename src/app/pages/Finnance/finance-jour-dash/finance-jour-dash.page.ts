@@ -47,14 +47,14 @@ export class FinanceJourDashPage implements OnInit {
   public recouvrementsList = [];
   public recouvrementsTitles : any = [];
   // recouvrement variables
-  
+
   // avoirs variables
-  
+
   public avoirsList = [];
   public avoirsTitles : any = []
-  
+
   // avoirs variables
-  
+
   // annulations variables
 
   public annulationsList = [];
@@ -164,12 +164,12 @@ export class FinanceJourDashPage implements OnInit {
 
   clickEventSubscription: Subscription;
   constructor(
-    private api : ApiService,  
-    private financeService: FinanceService, 
-    private cdr: ChangeDetectorRef, 
-    public loadingController: LoadingController, 
+    private api : ApiService,
+    private financeService: FinanceService,
+    private cdr: ChangeDetectorRef,
     private sharedService: SharedService,
-    private navCtrl : NavController 
+    private navCtrl : NavController,
+    private loadingController : LoadingController
 
   ) {
     this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
@@ -186,7 +186,16 @@ export class FinanceJourDashPage implements OnInit {
   // getDepensesList: get_depenses
 
   callApi() {
-    this.loader()
+    this.api.loader()
+    this.loader_obj = {
+      card_infos : false,
+      encaiss: false,
+      recouvrement: false,
+      annulations: false,
+      avoirs: false,
+      remise: false,
+      depense: false
+    }
 
     const formatedDate = () => {
       const currentDate = new Date();
@@ -204,11 +213,11 @@ export class FinanceJourDashPage implements OnInit {
         // Cards Prep
     this.financeService.getEncaissementCardsList(JSON.stringify({date: date, type: "jour"}))
     .subscribe(response => {
-      
+
       this.itemsEncaissement = []
       response.forEach(element => {
         console.log(element);
-        
+
         let item = {
           title: element.title,
           montant: element.result.montant,
@@ -220,9 +229,11 @@ export class FinanceJourDashPage implements OnInit {
       });
 
       this.loader_obj.card_infos = true
-      this.loader_dissmis()
+      this.api.loader()
+
+      this.api.loader_dissmis(this.loader_obj)
     })
-    
+
     // Donut Chart Prep(Encaissement)
 
     this.encaiss = []
@@ -230,9 +241,9 @@ export class FinanceJourDashPage implements OnInit {
     this.encCycleLabels = []
     this.encCycleData = []
 
-          
+
     this.encTypeLabels = []
-    this.encTypeData = [] 
+    this.encTypeData = []
 
     this.encServiceLabels = []
     this.encServiceData = []
@@ -244,18 +255,20 @@ export class FinanceJourDashPage implements OnInit {
       this.encCycleLabels = response?.cycle?.labels
       this.encCycleData = response?.cycle?.data
 
-            
+
       this.encTypeLabels = response?.paiement?.labels
-      this.encTypeData = response?.paiement?.data 
+      this.encTypeData = response?.paiement?.data
 
       this.encServiceLabels = response?.service?.labels
       this.encServiceData = response?.service?.data
 
       this.loader_obj.encaiss = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+
+      // this.loader_dissmis()
     })
 
-    
+
     this.recouvrementsList = []
     this.financeService.getRecouvrementsList(date)
     .subscribe(response => {
@@ -263,7 +276,9 @@ export class FinanceJourDashPage implements OnInit {
       this.recouvrementsTitles = response.titles;
 
       this.loader_obj.recouvrement = true
-      this.loader_dissmis()
+      // this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+
 
     })
 
@@ -273,12 +288,14 @@ export class FinanceJourDashPage implements OnInit {
     this.annulationsList = []
     this.financeService.getEncaissementAnnulationsList(date)
     .subscribe(response => {
-      this.annulationsList = response.list 
-      this.annulationsTitles = response.titles 
+      this.annulationsList = response.list
+      this.annulationsTitles = response.titles
 
       // console.log("Annulation items here: ",this.annulationsList)
       this.loader_obj.annulations = true;
-      this.loader_dissmis()
+      // this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+
     })
 
 
@@ -308,7 +325,8 @@ export class FinanceJourDashPage implements OnInit {
       this.avoirsTitles = response.Titles
 
       this.loader_obj.avoirs = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+      // this.loader_dissmis()
     })
     // let d = "2023-08-26"
     this.api.get({"period": date},"remises_jour")
@@ -317,7 +335,8 @@ export class FinanceJourDashPage implements OnInit {
       this.remise_count = elt.total
       this.remise_titles = elt.titles
       this.loader_obj.remise = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+      // this.loader_dissmis()
     })
 
     this.api.get({period: date, type: "jour"}, "get_depenses_data")
@@ -331,10 +350,11 @@ export class FinanceJourDashPage implements OnInit {
 
       this.listDepenses = response.listDepense.list
       console.log(response?.listDepense?.titles);
-      
+
 
       this.loader_obj.depense = true
-      this.loader_dissmis()
+      this.api.loader_dissmis(this.loader_obj)
+      // this.loader_dissmis()
     })
   }
 
@@ -349,9 +369,9 @@ export class FinanceJourDashPage implements OnInit {
 
   numFormatter(num) {
     if (num > 999 && num < 1000000) {
-      return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+      return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million
     } else if (num > 1000000) {
-      return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+      return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million
     } else if (num < 900) {
       return num; // if value < 1000, nothing to do
     }
@@ -400,7 +420,7 @@ export class FinanceJourDashPage implements OnInit {
   ngOnInit() {
     this.cdr.markForCheck();
     console.log("first exec")
-    // this.presentLoadingWithOptions() 
+    // this.presentLoadingWithOptions()
 
     // this.clickEventSubscription= this.sharedService.getClickEvent().subscribe(()=>{
     //   this.presentLoadingWithOptions()
@@ -411,48 +431,15 @@ export class FinanceJourDashPage implements OnInit {
     this.navCtrl.navigateRoot([link]);
   }
 
-  
-  async loader_dissmis() {
-    console.log(this.loader_obj);
-    
-    if(
-      this.loader_obj.card_infos  == true &&
-      this.loader_obj.encaiss == true &&
-      this.loader_obj.recouvrement == true &&
-      this.loader_obj.annulations == true &&
-      this.loader_obj.avoirs == true &&
-      this.loader_obj.remise == true &&
-      this.loader_obj.depense == true 
-    ) {
-      const loading = await this.loadingController.getTop();
-      console.log("cwfcewfwe");
-      
-      await loading.dismiss()
-    }
-  }
 
-  async loader() {
-    this.loader_obj = {
-      card_infos : false,
-      encaiss: false,
-      recouvrement: false,
-      annulations: false,
-      avoirs: false,
-      remise: false,
-      depense: false
-    }
-    const top = await this.loadingController.getTop()
-    if(top == undefined) {
-      const loading = await this.loadingController.create({
-        spinner: null,
-        message: 'Loading Data, Please wait...',
-        translucent: true,
-        cssClass: 'custom-class custom-loading'
-      });
-  
-      await loading.present();
-    }
 
-  }
+  // this.loader_obj.card_infos  == true &&
+  // this.loader_obj.encaiss == true &&
+  // this.loader_obj.recouvrement == true &&
+  // this.loader_obj.annulations == true &&
+  // this.loader_obj.avoirs == true &&
+  // this.loader_obj.remise == true &&
+  // this.loader_obj.depense == true
+
 
 }

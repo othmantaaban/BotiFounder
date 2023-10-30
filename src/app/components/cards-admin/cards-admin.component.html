@@ -1,7 +1,7 @@
 <ion-grid style="margin-right: 20px;margin-left: 20px;color: black;">
   <swiper-container *ngIf="items.length > 0" class="visible" [pager]="true" [initialSlide]="0" [speed]="600" [centeredSlides]="true">
     <swiper-slide *ngFor="let item of items;">
-      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;width: 100%;"
+      <ion-card style="padding-top: 10px;padding-bottom: 10px;margin: 10px;margin-bottom:30px;"
       class="card-custom">
       <ion-row style="border-bottom: solid #9c9c9c 1px;">
         <ion-col size="12" style="height: auto;">
@@ -38,8 +38,8 @@
               </svg> -->
 
             </span>
-            <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.count1}}</span> <span
-              style="font-size: 0.6em;">{{item.alias1}}</span>
+            <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.total2}}</span> <span
+              style="font-size: 0.6em;">{{item.label2}}</span>
           </h3>
         </ion-col>
       </ion-row>
@@ -61,7 +61,7 @@
           <ion-col size="5">
             <h3 style="margin: 0">
               <span style="margin-right: 5px ;">
-                
+
               </span>
               <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.total}}</span> <span
                 style="font-size: 0.6em;">{{item.label}}</span>
@@ -75,7 +75,7 @@
           <ion-col size="5">
             <h3 style="margin: 0;">
               <span style="margin-right: 3px;">
-                
+
 
               </span>
               <span style="font-weight:bold; margin-right: 3px;font-size:1em;">{{item.count1}}</span> <span
