@@ -89,10 +89,16 @@ export class ApiService {
       return true
     })
 
+    console.log(check);
+    
+
     if(check) {
       const loading = await this.loadingController.getTop();
-
-      await loading.dismiss()
+      console.log(loading);
+      
+      // if(loading) {
+        await loading.dismiss()
+      // }
     }
 
     // if(check) {

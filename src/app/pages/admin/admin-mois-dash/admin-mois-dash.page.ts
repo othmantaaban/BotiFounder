@@ -26,7 +26,13 @@ export class AdminMoisDashPage implements OnInit {
 
   public msgCycleLabels: string[] = [];
 
-  public msgCycleTitle : string = ""
+
+  public msgEtatData:any = [
+    {data: [], label: '',backgroundColor:"#2B2A64"},
+  ];
+  public msgEtatLabels = [];
+
+  public msgInfos: any = []
 // -----------------message-------------------------------
 
   public dmdNatureLabels: string[] = [];
@@ -117,18 +123,6 @@ export class AdminMoisDashPage implements OnInit {
 
 
     //Messges personnel
-    public msgEtatLabels: string[] = ['Répondus', 'Non Répondu'];
-    public msgEtatData: ChartData<'bar'> = {
-      labels: this.msgEtatLabels,
-      datasets: [
-        {
-          data: [13, 18],
-          backgroundColor: ["#2B2A64", "#F7643B", "#EE386E","#C4013B"],
-          hoverBackgroundColor: ["#2B2A64", "#F7643B", "#EE386E","#C4013B"],
-          hoverBorderColor: ["grey"]
-        }
-      ]
-    };
 
     // public msgCycleData: ChartData<'bar'> = {
     //   labels: this.msgCycleLabels,
@@ -231,15 +225,18 @@ export class AdminMoisDashPage implements OnInit {
       //   this.msgCycleData[0]["data"]=tmpData
       // })
 
-      this.apiService.get({period: date}, "get_messages_mois_new")
+      this.apiService.get({period: date, type: "mois"}, "get_messages_new")
       .subscribe(response =>{
         console.log(response);
 
         this.msgCycleData = response?.cycle?.data;
-
         this.msgCycleLabels = response?.cycle?.labels;
+  
+        this.msgEtatData = response?.etat?.data;
+        this.msgEtatLabels = response?.etat?.labels;
+  
+        this.msgInfos = response
 
-        this.msgCycleTitle = response?.title
         this.loader_obj.message = true
 
         this.apiService.loader_dissmis(this.loader_obj)

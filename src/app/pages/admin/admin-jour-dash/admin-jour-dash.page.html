@@ -6,7 +6,7 @@
   <!-- <app-cards-finance [items]="itemsAdmin"></app-cards-finance> -->
 
   <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
-    <app-listing-administration [items]="absentsList" Title="Personnel absent"></app-listing-administration>
+    <app-listing-administration [items]="absentsList.data" [Title]="absentsList?.title ? absentsList?.title : 'Personnel absent'"></app-listing-administration>
   </ion-card>
 
   <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
@@ -57,10 +57,41 @@
   </ion-card>
 
 
+
+
+  <ion-card style="padding:0;padding-top: 5px;padding-bottom: 5px;margin: 15px;margin-bottom:30px;width: 85%;" class="text-center card-custom mx-auto">
+    <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+      <span style="font-size: 0.9em ;">
+         {{ msgInfos?.title ? msgInfos?.title : "Messages par" }}
+      </span>
+    </h6>
+    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist" style="border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#msg-nature-mois" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+         {{ msgInfos?.cycle?.title ? msgInfos?.cycle?.title : "Cycle" }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#msg-etat-mois" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+          {{ msgInfos?.etat?.title ? msgInfos?.etat?.title : "etat" }}
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="msg-nature-mois" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="msgCycleLabels" [barChartData]="msgCycleData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+      <div class="tab-pane fade" id="msg-etat-mois" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+        <app-horizontal-bar-chart [barChartLabels]="msgEtatLabels" [barChartData]="msgEtatData" [barChartLegend]="false"></app-horizontal-bar-chart>
+      </div>
+    </div>
+  </ion-card>
+
+<!-- 
   <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
     <h6  style="text-align: center;font-weight:bold;border-bottom: 1px solid #E4E3E3;padding-bottom: 10px;"><span style="font-size: 0.9em ;">Message par Etat </span></h6>
     <app-horizontal-bar-chart [barChartLabels]="msgEtatsLabels" [barChartData]="msgEtatsData" [barChartLegend]="false"></app-horizontal-bar-chart>
-  </ion-card>
+  </ion-card> -->
   <!-- <ion-card class="mx-auto" style="padding-top: 10px;padding-bottom: 10px;margin: 15px;margin-bottom:30px;width: 85%;" >
     <app-listing-admin [items]="messagesList" [Title]="'Messages reçus'"></app-listing-admin>
   </ion-card> -->
