@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ChartData } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { DateSegmentsComponent } from 'src/app/components/date-segments/date-segments.component';
+import { ApiService } from 'src/app/services/api/api.service';
 import { PedagServiceService } from 'src/app/services/pedag-service.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -82,7 +83,10 @@ export class PedagMoisDashPage implements OnInit {
 
   clickEventSubscription: Subscription;
   constructor(
-    private pedagService: PedagServiceService, public loadingController: LoadingController, private sharedService: SharedService
+    private pedagService: PedagServiceService, 
+    public loadingController: LoadingController, 
+    private sharedService: SharedService,
+    private apiService: ApiService
   ) {
     this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
       if(elt.value=="mois"&&elt.tab=='pedag'){
@@ -296,6 +300,12 @@ export class PedagMoisDashPage implements OnInit {
       this.itemsPedag2.push({ title: "Ressources Partagées", total: count, label: "Partagées" })
     })
 
+
+    this.apiService.get({period: date}, "get_card_infos_pedag")
+    .subscribe(elt => {
+      console.log(elt);
+      
+    })
 
     // console.log("cards 2: ",this.itemsPedag2)
 
