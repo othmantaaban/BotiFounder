@@ -64,7 +64,9 @@ export class ApiService {
 
   async loader() {
     const top = await this.loadingController.getTop()
-    if(top == undefined) {
+    console.log(top);
+    
+    if(!top) {
       const loading = await this.loadingController.create({
         spinner: null,
         message: 'Loading Data, Please wait...',
@@ -96,9 +98,15 @@ export class ApiService {
       const loading = await this.loadingController.getTop();
       console.log(loading);
       
-      // if(loading) {
+      if(loading) {
         await loading.dismiss()
-      // }
+
+        const check = await this.loadingController.getTop();
+        if(check) {
+          await check.dismiss()
+        }
+
+      }
     }
 
     // if(check) {

@@ -19,4 +19,11 @@ export class ListingRecouvrementsComponent implements OnInit {
     return Object.getOwnPropertyNames(item)
   }
 
+  checkTypeOf(item) {
+    let check = item.replaceAll(" ", "")
+    return !Number.isNaN(+check) ? true: false
+    
+    // return typeof +item == "Number" ? true: false;
+  }
+
 }

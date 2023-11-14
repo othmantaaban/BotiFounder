@@ -3,6 +3,8 @@
 }
 .parent {
     overflow-x: scroll;
+    min-height: 350px;
+    max-height: 350px;
     .table {
         margin: 19px;
         thead {
@@ -31,6 +33,10 @@
                     span {
                         padding: 0 !important;
                         font-size: 12px;
+
+                        &.wrap {
+                            text-wrap: nowrap;
+                        }
                     }
                 }
             }
