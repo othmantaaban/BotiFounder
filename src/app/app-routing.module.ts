@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    // canActivate: [SchoolGuardService,AuthGuardService],
+    canActivate: [SchoolGuardService,AuthGuardService],
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {

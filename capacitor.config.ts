@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.smartux.botischool',
-  appName: 'com.smartux.botischool',
+  appName: 'Boti Founder',
   webDir: 'www',
   server: {
     androidScheme: 'https'
