@@ -33,18 +33,19 @@ export class PedagJourDashPage implements OnInit {
     ]
   clickEventSubscription:Subscription;
   constructor(
-    private pedagService: PedagServiceService,private cdr: ChangeDetectorRef,public loadingController: LoadingController,private sharedService:SharedService
+    private pedagService: PedagServiceService,
+    private cdr: ChangeDetectorRef,
+    public loadingController: LoadingController,private sharedService:SharedService
   ) {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
-      if(elt.value=="jour"&&elt.tab=='pedag')
-      this.callApi();
-
-      this.presentLoadingWithOptions()
+      if(elt.value=="jour" && elt.tab=='pedag-dash') {
+        this.presentLoadingWithOptions()
+      }
     })
    }
 
   ionViewWillEnter() {
-    this.callApi()
+    this.presentLoadingWithOptions()
   }
 
 
@@ -64,13 +65,15 @@ export class PedagJourDashPage implements OnInit {
   async presentLoadingWithOptions() {
     const loading = await this.loadingController.create({
       spinner: null,
-      message: '<h3>Loading Data, Please wait...</h3>',
+      message: 'Loading Data, Please wait...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
     return await loading.present().then(()=>{
       this.callApi();
     }).then(()=>{
+      loading.dismiss()
+    }).catch(() => {
       loading.dismiss()
     });
     // loading.dismiss()
@@ -84,8 +87,8 @@ export class PedagJourDashPage implements OnInit {
     };
 
     callApi(){
-      const formatedDate = () => {
-        const currentDate = new Date();
+      const formatedDate = (date = null) => {
+        const currentDate = date ? new Date(date) : new Date();
         const year = currentDate.getFullYear();
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const day = String(currentDate.getDate()).padStart(2, '0');
@@ -93,11 +96,10 @@ export class PedagJourDashPage implements OnInit {
         return `${year}-${month}-${day}`;
       }
   
-      let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : formatedDate();
-      console.log(date);
-      
+      let date = formatedDate(DateSegmentsComponent.dateValue);
+
       this.pedagService.getAbsences(date).subscribe(response =>{
-        const data=response.result
+        const data=response?.result
         console.log("ret data: ",data)
         let dataRet=data.map((d) => (d.Retards));
         let totalRet=0

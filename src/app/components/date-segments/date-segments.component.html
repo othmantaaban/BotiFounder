@@ -68,7 +68,15 @@
                 </svg>
             </button>
                <!-- <span class="mx-4">22 juin 2022</span> -->
-            <ion-button class="date"  mode="md">{{displayVal}}</ion-button>
+            <ion-button class="date"  mode="md">
+              <ng-container *ngIf="formatType">
+                {{displayVal | date : formatType : '': 'fr'}}
+              </ng-container>
+              <ng-container *ngIf="!formatType">
+                {{displayVal}}
+              </ng-container>
+
+            </ion-button>
             <!-- id="open-modal" -->
             <!-- id="open-modal" -->
 

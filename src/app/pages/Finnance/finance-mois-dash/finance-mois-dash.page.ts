@@ -146,8 +146,11 @@ export class FinanceMoisDashPage implements OnInit {
     private loadingController : LoadingController
 
   ) {
+
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
-      if (elt.value == "mois"&&elt.tab=='fin') {
+      console.log(elt);
+      
+      if (elt.value == "mois" && elt.tab=='finance-dash') {
         this.callApi();
       }
     })
@@ -170,160 +173,176 @@ export class FinanceMoisDashPage implements OnInit {
   // getRetardsMoisList : etat_impayes_parents
 
   async callApi(){
-    this.api.loader()
-    this.itemsEncaissement=[]
-    let d = new Date()
-    let val = d.getMonth() + 1
-    if(DateSegmentsComponent.dateValue !== undefined) {
-      if(DateSegmentsComponent.dateValue != -1) {
-        d.setMonth(DateSegmentsComponent.dateValue)
-        val = d.getMonth() == 0 ? 12 :d.getMonth()
-      } else {
-        val = 0
+    // this.api.loader()
+    const loading = await this.loadingController.create({
+      spinner: null,
+      message: 'Loading Data, Please wait...',
+      translucent: true,
+      cssClass: 'custom-class custom-loading'
+    });
+    loading.present().then(() => {
+      this.itemsEncaissement=[]
+      let d = new Date()
+      let val = d.getMonth() + 1
+      if(DateSegmentsComponent.dateValue !== undefined) {
+        if(DateSegmentsComponent.dateValue != -1) {
+          
+          let dateVal = new Date(DateSegmentsComponent.dateValue); 
+          console.log(dateVal.getMonth());
+          
+          val = dateVal.getMonth() + 1
+        } else {
+          val = 0
+        }
       }
-    }
-    let date = val;
-
-    this.itemsEncaissement = []
-    this.financeService.getEncaissementCardsList(JSON.stringify({date: date, type: "mois"}))
-    .subscribe(response => {
-
-      response.forEach(element => {
-          let item = {
-            title: element.title,
-            montant: element.result.montant,
-            alias: element.note,
-            unite: "MAD",
-            count: element.result.countEleves
-          }
-          this.itemsEncaissement.push(item)
-      });
-
-      this.loader_obj.card_infos = true;
-
-      this.api.loader_dissmis(this.loader_obj)
-
+      let date = val;
+  
+      this.itemsEncaissement = []
+      this.financeService.getEncaissementCardsList(JSON.stringify({date: date, type: "mois"}))
+      .subscribe(response => {
+  
+        response.forEach(element => {
+            let item = {
+              title: element.title,
+              montant: element.result.montant,
+              alias: element.note,
+              unite: "MAD",
+              count: element.result.countEleves
+            }
+            this.itemsEncaissement.push(item)
+        });
+  
+        this.loader_obj.card_infos = true;
+  
+        this.api.loader_dissmis(this.loader_obj)
+  
+      })
+  
+      this.caServiceData = [];
+      this.caServiceLabels = [];
+      this.caCycleData = [];
+      this.caCycleLabels = [];
+      this.cs_prevus= []
+  
+      this.financeService.getCAList(date)
+      .subscribe(response => {
+        this.cs_prevus = response
+  
+        this.caServiceData = response.service.data;
+        this.caServiceLabels = response.service.labels;
+  
+        this.caCycleData = response.cycle.data;
+        this.caCycleLabels = response.cycle.labels;
+  
+  
+        this.loader_obj.ca_prevu = true
+        this.api.loader_dissmis(this.loader_obj)
+      })
+  
+      this.cycleLabels = []
+      this.cycleData = []
+  
+  
+      this.modeLabels = []
+      this.modeData = []
+  
+  
+      this.serviceLabels = []
+      this.serviceData = []
+  
+      this.encaiss = []
+  
+      this.api.get({period: date, type: "mois"}, "get_encaissements_data")
+      .subscribe(response => {
+        this.encaiss = response
+        this.cycleLabels = response?.cycle?.labels
+        this.cycleData = response?.cycle?.data
+  
+  
+        this.modeLabels = response?.paiement?.labels
+        this.modeData = response?.paiement?.data
+  
+        this.serviceLabels = response?.service?.labels
+        this.serviceData = response?.service?.data
+  
+        this.loader_obj.encaiss = true
+  
+        this.api.loader_dissmis(this.loader_obj)
+      })
+  
+      this.cycleRetData = []
+      this.cycleRetLabels = []
+  
+      this.serviceRetData = []
+      this.serviceRetLabels = []
+  
+      this.retardsList = []
+  
+      this.retards = []
+  
+      this.financeService.getRetardsMoisList(date)
+      .subscribe(response=>{
+  
+        this.retards = response
+  
+        this.cycleRetData = response.cycle.data
+        this.cycleRetLabels = response.cycle.labels
+  
+        this.serviceRetData = response.service.data
+        this.serviceRetLabels = response.service.labels
+  
+        this.retardsList = response.list.data
+  
+        this.loader_obj.retard = true
+  
+        this.api.loader_dissmis(this.loader_obj)
+      })
+  
+      this.depenses = []
+      this.depensesCategLabels = [];
+      this.depensesCategData = [];
+  
+      this.depensesPrestataireLabels = [];
+      this.depensesPrestataireData = [];
+  
+      this.listDepenses = [];
+  
+      this.api.get({period: date, type: "mois", test: 10}, "get_depenses_data")
+      .subscribe(response => {
+        this.depenses = response
+        this.depensesCategLabels = response.category.labels
+        this.depensesCategData = response.category.data
+  
+        this.depensesPrestataireLabels = response.prestataire.labels
+        this.depensesPrestataireData = response.prestataire.data
+  
+        this.listDepenses = response.listDepense.list
+  
+        this.loader_obj.depense = true
+        this.api.loader_dissmis(this.loader_obj)
+      })
+  
+  
+      this.api.get({period: date}, "bar_ca_encaissement")
+      .subscribe(elt => {
+        this.barChartData1 = elt?.data1
+        this.barChartLabels1 = elt?.labels
+  
+        this.barChartData2 = elt?.data2
+        this.barChartLabels2 = elt?.labels
+  
+  
+        this.bar_title1 = elt.title1
+        this.bar_title2 = elt.title1
+  
+        this.loader_obj.bar_ca_encaiss = true
+        this.api.loader_dissmis(this.loader_obj)
+      })
+    }).finally(async () => {
+      // await loading.dismiss()
     })
-
-    this.caServiceData = [];
-    this.caServiceLabels = [];
-    this.caCycleData = [];
-    this.caCycleLabels = [];
-    this.cs_prevus= []
-
-    this.financeService.getCAList(date)
-    .subscribe(response => {
-      this.cs_prevus = response
-
-      this.caServiceData = response.service.data;
-      this.caServiceLabels = response.service.labels;
-
-      this.caCycleData = response.cycle.data;
-      this.caCycleLabels = response.cycle.labels;
-
-
-      this.loader_obj.ca_prevu = true
-      this.api.loader_dissmis(this.loader_obj)
-    })
-
-    this.cycleLabels = []
-    this.cycleData = []
-
-
-    this.modeLabels = []
-    this.modeData = []
-
-
-    this.serviceLabels = []
-    this.serviceData = []
-
-    this.encaiss = []
-
-    this.api.get({period: date, type: "mois"}, "get_encaissements_data")
-    .subscribe(response => {
-      this.encaiss = response
-      this.cycleLabels = response?.cycle?.labels
-      this.cycleData = response?.cycle?.data
-
-
-      this.modeLabels = response?.paiement?.labels
-      this.modeData = response?.paiement?.data
-
-      this.serviceLabels = response?.service?.labels
-      this.serviceData = response?.service?.data
-
-      this.loader_obj.encaiss = true
-
-      this.api.loader_dissmis(this.loader_obj)
-    })
-
-    this.cycleRetData = []
-    this.cycleRetLabels = []
-
-    this.serviceRetData = []
-    this.serviceRetLabels = []
-
-    this.retardsList = []
-
-    this.retards = []
-
-    this.financeService.getRetardsMoisList(date)
-    .subscribe(response=>{
-
-      this.retards = response
-
-      this.cycleRetData = response.cycle.data
-      this.cycleRetLabels = response.cycle.labels
-
-      this.serviceRetData = response.service.data
-      this.serviceRetLabels = response.service.labels
-
-      this.retardsList = response.list.data
-
-      this.loader_obj.retard = true
-
-      this.api.loader_dissmis(this.loader_obj)
-    })
-
-    this.depenses = []
-    this.depensesCategLabels = [];
-    this.depensesCategData = [];
-
-    this.depensesPrestataireLabels = [];
-    this.depensesPrestataireData = [];
-
-    this.listDepenses = [];
-
-    this.api.get({period: date, type: "mois", test: 10}, "get_depenses_data")
-    .subscribe(response => {
-      this.depenses = response
-      this.depensesCategLabels = response.category.labels
-      this.depensesCategData = response.category.data
-
-      this.depensesPrestataireLabels = response.prestataire.labels
-      this.depensesPrestataireData = response.prestataire.data
-
-      this.listDepenses = response.listDepense.list
-
-      this.loader_obj.depense = true
-      this.api.loader_dissmis(this.loader_obj)
-    })
-
-
-    this.api.get({period: date}, "bar_ca_encaissement")
-    .subscribe(elt => {
-      this.barChartData1 = elt?.data1
-      this.barChartLabels1 = elt?.labels
-
-      this.barChartData2 = elt?.data2
-      this.barChartLabels2 = elt?.labels
-
-
-      this.bar_title1 = elt.title1
-      this.bar_title2 = elt.title1
-
-      this.loader_obj.bar_ca_encaiss = true
-      this.api.loader_dissmis(this.loader_obj)
+    .catch(async () => {
+      await loading.dismiss()
     })
 
 

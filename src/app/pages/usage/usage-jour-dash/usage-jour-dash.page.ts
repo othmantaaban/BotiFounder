@@ -19,8 +19,11 @@ export class UsageJourDashPage implements OnInit {
     private usageService: UsageService, private cdr: ChangeDetectorRef, public loadingController: LoadingController, private sharedService: SharedService
   ) {
     this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
-      if(elt.value=="jour"&&elt.tab=='usage')
-      this.presentLoadingWithOptions()
+
+      if(elt.value=="mois"&&elt.tab=='usage-dash') {
+        this.presentLoadingWithOptions()
+
+      }
       // this.callApi();
     })
   }
@@ -93,8 +96,8 @@ export class UsageJourDashPage implements OnInit {
   };
 
   async callApi() {
-    const formatedDate = () => {
-      const currentDate = new Date();
+    const formatedDate = (date = null) => {
+      const currentDate = date ? new Date(date) : new Date();
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const day = String(currentDate.getDate()).padStart(2, '0');
@@ -102,8 +105,13 @@ export class UsageJourDashPage implements OnInit {
       return `${year}-${month}-${day}`;
     }
 
-    // let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : formatedDate();
-    let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth() + 1;
+    // let date = formatedDate(DateSegmentsComponent.dateValue);
+
+    console.log(DateSegmentsComponent.dateValue)
+    let dateM : Date = DateSegmentsComponent.dateValue !== undefined ? new Date(DateSegmentsComponent.dateValue) : new Date();
+
+    let date = dateM.getMonth() + 1 
+    // let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth() + 1;
 
     console.log(date);
     
@@ -381,9 +389,6 @@ export class UsageJourDashPage implements OnInit {
       this.barCycleLabels = tmpLabels
       this.barCycleData[0]["data"] = tmpData
     })
-
-    // console.log("cards 2: ",this.itemsPedag2)
-
   }
 
   async presentLoading() {
@@ -401,7 +406,7 @@ export class UsageJourDashPage implements OnInit {
   async presentLoadingWithOptions() {
     this.loading = await this.loadingController.create({
       spinner: null,
-      message: '<h3>Loading Data, Please wait...</h3>',
+      message: 'Loading Data, Please wait...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });

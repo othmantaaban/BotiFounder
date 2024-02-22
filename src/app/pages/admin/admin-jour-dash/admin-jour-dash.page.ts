@@ -63,8 +63,10 @@ export class AdminJourDashPage implements OnInit {
     private apiService : ApiService
   ) {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
-      if(elt.value=="jour"&&elt.tab=='admin')
-      this.presentLoadingWithOptions();
+      if (elt.value == "jour" && elt.tab=='admin') {
+        this.presentLoadingWithOptions();
+
+      }
     })
    }
 
@@ -93,7 +95,7 @@ export class AdminJourDashPage implements OnInit {
   async presentLoadingWithOptions() {
     const loading = await this.loadingController.create({
       spinner: null,
-      message: '<h3>Loading Data, Please wait...</h3>',
+      message: 'Loading Data, Please wait...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
@@ -109,8 +111,8 @@ export class AdminJourDashPage implements OnInit {
 
 
   callApi(){
-    const formatedDate = () => {
-      const currentDate = new Date();
+    const formatedDate = (date = null) => {
+      const currentDate = date ? new Date(date): new Date()
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const day = String(currentDate.getDate()).padStart(2, '0');
@@ -118,7 +120,7 @@ export class AdminJourDashPage implements OnInit {
       return `${year}-${month}-${day}`;
     }
 
-    let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : formatedDate();
+    let date = formatedDate(DateSegmentsComponent.dateValue);
 
     this.itemsAdmin=[]
 

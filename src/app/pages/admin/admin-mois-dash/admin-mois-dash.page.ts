@@ -65,8 +65,9 @@ export class AdminMoisDashPage implements OnInit {
 
     ) {
     this.clickEventSubscription= this.sharedService.getClickEvent().subscribe((elt)=>{
-      if(elt.value=="mois"&&elt.tab=='admin')
-      this.callApi();
+      if (elt.value == "mois" && elt.tab=='admin') {
+        this.callApi();
+      }
     })
    }
 
@@ -182,49 +183,13 @@ export class AdminMoisDashPage implements OnInit {
         message: false,
       }
 
-
       let d = new Date()
       let val = d.getMonth() + 1
       if(DateSegmentsComponent.dateValue !== undefined) {
-        d.setMonth(DateSegmentsComponent.dateValue)
-        val = d.getMonth() == 0 ? 12 :d.getMonth()
+        let dateVal = new Date(DateSegmentsComponent.dateValue); 
+        val = dateVal.getMonth() + 1
       }
       let date = val;
-
-      // let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth();
-      // console.log(date);
-
-      // this.adminService.getMessagesMois(date)
-      // .subscribe(response =>{
-      //   const data=response.result
-      //   // Cycle prep
-      //   let dataCycle=data.map((d) => ({Cycle:d.Cycle,Count:1}));
-      //   let tmpTable = this.groupArrayOfObjects(
-      //     dataCycle,
-      //     "Cycle"
-      //   );
-      //   const dictCycle = [];
-      //   for (const [key1, value1] of Object.entries(tmpTable)) {
-      //     let total=0
-      //     // console.log("here: ",Object.keys(value1).length)
-      //     Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
-      //     dictCycle.push({
-      //       Cycle: key1,
-      //       total: total,
-      //     });
-      //     total=0
-      //   }
-      //   let tmpData=[]
-      //   let tmpLabels=[]
-      //   dictCycle.map((d)=>{
-      //     tmpLabels.push(d.Cycle)
-      //     tmpData.push(d.total)
-      //   })
-      //   console.log("msg cycle data: ",dictCycle)
-      //   this.msgCycleLabels=tmpLabels
-      //   this.msgCycleData[0]["data"]=tmpData
-      // })
-
       this.apiService.get({period: date, type: "mois"}, "get_messages_new")
       .subscribe(response =>{
         console.log(response);
@@ -241,92 +206,7 @@ export class AdminMoisDashPage implements OnInit {
 
         this.apiService.loader_dissmis(this.loader_obj)
       })
-
-      // this.adminService.getDemandesMois(date)
-      // .subscribe(response =>{
-      //   const data=response.result
-      //   // Nature prep
-      //   let dataNature=data.map((d) => ({Nature:d.Nature,Count:1}));
-      //   let tmpTable = this.groupArrayOfObjects(
-      //     dataNature,
-      //     "Nature"
-      //   );
-      //   console.log(dataNature)
-      //   const dictNature = [];
-      //   for (const [key1, value1] of Object.entries(tmpTable)) {
-      //     let total=0
-      //     // console.log("here: ",Object.keys(value1).length)
-      //     Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
-      //     dictNature.push({
-      //       Nature: key1,
-      //       total: total,
-      //     });
-      //     total=0
-      //   }
-      //   let tmpData=[]
-      //   let tmpLabels=[]
-      //   dictNature.map((d)=>{
-      //     tmpLabels.push(d.Nature)
-      //     tmpData.push(d.total)
-      //   })
-      //   this.dmdNatureLabels=tmpLabels
-      //   this.dmdNatureData[0]["data"]=tmpData
-
-      //   // Cycle prep
-      //   let dataCycle=data.map((d) => ({Cycle:d.Cycle,Count:1}));
-      //   tmpTable = this.groupArrayOfObjects(
-      //     dataCycle,
-      //     "Cycle"
-      //   );
-      //   // console.log("data cycle: ",dataCycle)
-      //   const dictCycle = [];
-      //   for (const [key1, value1] of Object.entries(tmpTable)) {
-      //     let total=0
-      //     // console.log("here: ",Object.keys(value1).length)
-      //     Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
-      //     dictCycle.push({
-      //       Cycle: key1,
-      //       total: total,
-      //     });
-      //     total=0
-      //   }
-      //   tmpData=[]
-      //   tmpLabels=[]
-      //   dictCycle.map((d)=>{
-      //     tmpLabels.push(d.Cycle)
-      //     tmpData.push(d.total)
-      //   })
-      //   this.dmdCycleLabels=tmpLabels
-      //   this.dmdCycleData[0]["data"]=tmpData
-
-      //   // Etat prep
-      //   let dataEtat=data.map((d) => ({Etat:d.Statut,Count:1}));
-      //   tmpTable = this.groupArrayOfObjects(
-      //     dataEtat,
-      //     "Etat"
-      //   );
-      //   // console.log(dataEtat)
-      //   const dictEtat = [];
-      //   for (const [key1, value1] of Object.entries(tmpTable)) {
-      //     let total=0
-      //     // console.log("here: ",Object.keys(value1).length)
-      //     Object.values(value1).map(v =>{total+=parseFloat(v.Count)})
-      //     dictEtat.push({
-      //       Etat: key1,
-      //       total: total,
-      //     });
-      //     total=0
-      //   }
-      //   tmpData=[]
-      //   tmpLabels=[]
-      //   dictEtat.map((d)=>{
-      //     tmpLabels.push(d.Etat)
-      //     tmpData.push(d.total)
-      //   })
-      //   this.dmdEtatLabels=tmpLabels
-      //   this.dmdEtatData[0]["data"]=tmpData
-      // })
-
+      
       this.dmd = []
       this.dmdNatureLabels = []
       this.dmdNatureData = []

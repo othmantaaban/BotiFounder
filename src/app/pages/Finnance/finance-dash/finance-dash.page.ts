@@ -15,13 +15,15 @@ export class FinanceDashPage implements OnInit {
   // @ViewChild("annes") anneeRef: any;
   @ViewChild('datesegment') datesegment : DateSegmentsComponent;
 
+  public dateTimeType = "month"
+
   public pathList=[
-    {vue:'Jour', path:'/tabs/admin-jour-dash',value:'jour'},
-    {vue:'Mois', path:'/tabs/admin-mois-dash',value:'mois'},
+    {vue:'Jour', path:'/tabs/finance-dash/jour',value:'jour'},
+    {vue:'Mois', path:'/tabs/finance-dash/mois',value:'mois'},
     // {vue:'Annee',path:'/tabs/admin-annee-dash',value:'annee'}
   ];
 
-  public active : string = "jour";
+  public active : string = "mois";
 
 // : ComponentRef
   constructor(
@@ -69,6 +71,17 @@ export class FinanceDashPage implements OnInit {
     // this.segmentCmp.ngOnDestroy()
   }
 
+  segmentChanged(ev) {
+    console.log(this.active);
+    
+  }
+  leftDate() {
+
+  }
+
+  rightDate() {
+    
+  }
   
 
 }

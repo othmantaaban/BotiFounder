@@ -89,40 +89,30 @@ export class PedagMoisDashPage implements OnInit {
     private apiService: ApiService
   ) {
     this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((elt) => {
-      if(elt.value=="mois"&&elt.tab=='pedag'){
-        this.presentLoadingWithOptions()
-        // this.callApi();
+      if(elt.value == "mois" && elt.tab == 'pedag-dash'){
+        this.presentLoadingWithOptions();
       }
     })
   }
 
   
   ionViewWillEnter() {
-    this.callApi()
+    this.presentLoadingWithOptions()
   }
 
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Hellooo',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-
-    console.log('Loading dismissed!');
-  }
 
   async presentLoadingWithOptions() {
     const loading = await this.loadingController.create({
       spinner: null,
-      message: '<h3>Loading Data, Please wait...</h3>',
+      message: 'Loading Data, Please wait...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
     return await loading.present().then(() => {
       this.callApi();
     }).then(() => {
+      loading.dismiss()
+    }).catch(() => {
       loading.dismiss()
     });
     // loading.dismiss()
@@ -135,12 +125,30 @@ export class PedagMoisDashPage implements OnInit {
     }, {});
   };
 
+  loaderObj = {
+    abscences: false,   
+    devoirs: false,   
+    chtext: false,   
+    ressource: false,   
+  }
+
   callApi() {
+    // this.apiService.loader()
+
     console.log(DateSegmentsComponent.dateValue)
-    let date = DateSegmentsComponent.dateValue !== undefined ? DateSegmentsComponent.dateValue : new Date().getMonth();
+    let dateM : Date = DateSegmentsComponent.dateValue !== undefined ? new Date(DateSegmentsComponent.dateValue) : new Date();
+
+    let date = dateM.getMonth() + 1 
     console.log(date);
+    this.loaderObj = {
+      abscences: false,   
+      devoirs: false,   
+      chtext: false,   
+      ressource: false,   
+    }
+
     this.pedagService.getAbsencesMois(date).subscribe(response => {
-      const data = response.result
+      const data = response?.result
       console.log("ret data: ", data)
       let dataRet = data.map((d) => (d.Retards));
       let totalRet = 0
@@ -281,6 +289,8 @@ export class PedagMoisDashPage implements OnInit {
       })
       // this.classeLabels=tmpLabels
       // this.classeData[0]["data"]=tmpData
+      this.loaderObj.abscences = true
+      this.apiService.loader_dissmis(this.loaderObj)
 
     })
 
@@ -288,16 +298,24 @@ export class PedagMoisDashPage implements OnInit {
     this.pedagService.getDevoirsMois(date).subscribe(response => {
       const count = response.count
       this.itemsPedag2.push({ title: "Devoirs Partagés", total: count, label: "" })
+      this.loaderObj.devoirs = true
+      this.apiService.loader_dissmis(this.loaderObj)
+
     })
 
     this.pedagService.getCahierTexteMois(date).subscribe(response => {
       const count = response.count
       this.itemsPedag2.push({ title: "Cahiers de texte Partagés", total: count, label: "Partagés" })
+      this.loaderObj.chtext = true
+      this.apiService.loader_dissmis(this.loaderObj)
+
     })
 
     this.pedagService.getRessourcesMois(date).subscribe(response => {
       const count = response.count
       this.itemsPedag2.push({ title: "Ressources Partagées", total: count, label: "Partagées" })
+      this.loaderObj.ressource = true
+      this.apiService.loader_dissmis(this.loaderObj)
     })
 
 

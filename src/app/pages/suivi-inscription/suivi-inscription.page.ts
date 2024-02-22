@@ -149,7 +149,7 @@ export class SuiviInscriptionPage implements OnInit {
   async presentLoader() {
     this.loading = await this.loadingController.create({
       spinner: null,
-      message: '<h3>Loading Data, Please wait...</h3>',
+      message: 'Loading Data, Please wait...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     })

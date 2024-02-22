@@ -5,3 +5,25 @@
 .theme{
     background-color: var(--main-color);
 }
+
+.slideerDate {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+
+    .date {
+        margin: 0;
+        flex: 1;
+        max-width: 200px;
+        padding: 0.5rem;
+        --padding-start: 10px;
+        --padding-end:  10px;
+        --padding-top: 0;
+        --padding-bottom: 0;
+
+        text-transform: capitalize;
+        --color: var(--main-color);
+        --background: transparent;
+        --box-shadow: none;
+    }
+}
